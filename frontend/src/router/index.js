@@ -1,16 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import SplashView from "../views/SplashView.vue";
 import ModeSelectView from "../views/ModeSelectView.vue";
 import OrdinaryMenuView from "../views/OrdinaryMenuView.vue";
 import ModeTutorialView from "../views/ModeTutorialView.vue";
 import EasyMenuView from "../views/EasyMenuView.vue";
 const routes = [
-    {
-        path: "/",
-        name: "home",
-        component: HomeView,
-    },
     {
         path: "/about",
         name: "about",
