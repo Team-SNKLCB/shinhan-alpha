@@ -39,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'user.apps.UserConfig',
+    'apps.apps.AppsConfig',
+    'mission.apps.MissionConfig',
+    'stock.apps.StockConfig',
+    'reward.apps.RewardConfig',
+    'bank.apps.BankConfig',
+    'invite.apps.InviteConfig',
 ]
 
 MIDDLEWARE = [
@@ -142,11 +149,11 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("JWT", ),
 }
 
-# AUTH_USER_MODEL = "user.User"
+AUTH_USER_MODEL = "user.User"
 
-# AUTHENTICATION_BACKENDS = {
-#     "user.auth.UserAuth"
-# }
+AUTHENTICATION_BACKENDS = {
+    "user.auth.UserAuth"
+}
 
 INTERNAL_IPS = [
     "127.0.0.1",

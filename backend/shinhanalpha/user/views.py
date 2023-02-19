@@ -4,7 +4,7 @@ from .serializers import UserSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
-from ..shinhanalpha.settings import SIMPLE_JWT
+from shinhanalpha.settings import SIMPLE_JWT
 
 # Create your views here.
 class UserRegisterView(generics.CreateAPIView):
@@ -14,7 +14,7 @@ class UserLoginView(APIView):
     serializer_class = UserSerializer
 
     def post(self, request, *args, **kwargs):
-        user = authenticate(id=request.data.get("id"), pw=request.data.get("pw"))
+        user = authenticate(id=request.data.get("id"), password=request.data.get("password"))
         if user is not None:
             serialized_user_data = self.serializer_class(user)
             token = TokenObtainPairSerializer.get_token(user)
