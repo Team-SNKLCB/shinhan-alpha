@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'user.apps.UserConfig',
     'apps.apps.AppsConfig',
-    'mission.apps.MissionConfig',
-    'stock.apps.StockConfig',
-    'reward.apps.RewardConfig',
-    'bank.apps.BankConfig',
-    'invite.apps.InviteConfig',
+    # 'mission.apps.MissionConfig',
+    # 'stock.apps.StockConfig',
+    # 'reward.apps.RewardConfig',
+    # 'bank.apps.BankConfig',
+    # 'invite.apps.InviteConfig',
 ]
 
 MIDDLEWARE = [

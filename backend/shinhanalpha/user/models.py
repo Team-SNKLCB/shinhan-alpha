@@ -47,7 +47,7 @@ class UserApps(models.Model):
 
 class SBLog(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
-    stock = models.ForeignKey('stock.Stock', on_delete=models.CASCADE, verbose_name='주식종목')
+    # stock = models.ForeignKey('stock.Stock', on_delete=models.CASCADE, verbose_name='주식종목')
     tstamp = models.DateTimeField(auto_now_add=True, verbose_name='등록일시')
     class Meta:
         db_table = 'shinhan_user_sb'
@@ -56,7 +56,7 @@ class SBLog(models.Model):
 
 class RewardLog(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
-    reward = models.ForeignKey('reward.Reward', on_delete=models.CASCADE, verbose_name='리워드')
+    # reward = models.ForeignKey('reward.Reward', on_delete=models.CASCADE, verbose_name='리워드')
     flag = models.IntegerField(default=0, verbose_name='리워드상태')
     class Meta:
         db_table = 'shinhan_user_reward'
@@ -65,7 +65,7 @@ class RewardLog(models.Model):
 
 class Bank(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
-    bank = models.ForeignKey('bank.Bank', on_delete=models.CASCADE, verbose_name='계좌')
+    # bank = models.ForeignKey('bank.Bank', on_delete=models.CASCADE, verbose_name='계좌')
     class Meta:
         db_table = 'shinhan_user_bank'
         verbose_name = '회원 계좌'
@@ -73,7 +73,7 @@ class Bank(models.Model):
 
 class Invite(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
-    invite = models.ForeignKey('invite.Invite', on_delete=models.CASCADE, verbose_name='초대')
+    # invite = models.ForeignKey('invite.Invite', on_delete=models.CASCADE, verbose_name='초대')
     class Meta:
         db_table = 'shinhan_user_invite'
         verbose_name = '회원 초대'
