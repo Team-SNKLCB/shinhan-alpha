@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'name', 'ename', 'rrn', 'tel', 'tier', 'status', 'tstamp')
+        fields = ('id', 'username', 'password', 'name', 'ename', 'rrn', 'tel', 'status', 'tstamp')
         extra_kwargs = {
             "password": {
                 "write_only": True,
@@ -86,14 +86,14 @@ class UserMissionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserPointSerializer(serializers.ModelSerializer):
-    mission_point  = serializers.SerializerMethodField()
-    mission_description = serializers.SerializerMethodField()
-    def get_mission_point(self, obj):
-        return obj.mission.point
-    def get_mission_description(self, obj):
-        return obj.mission.description
+    # mission_point  = serializers.SerializerMethodField()
+    # mission_description = serializers.SerializerMethodField()
+    # def get_mission_point(self, obj):
+    #     return obj.mission.point
+    # def get_mission_description(self, obj):
+    #     return obj.mission.description
 
-    # 포인트 합
+    # 포인트 합 구현 필요
     # total_point = serializers.SerializerMethodField()
     # def get_total_point(self, obj):
     #     return obj.mission_set.all().count()

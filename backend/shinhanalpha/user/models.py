@@ -10,7 +10,7 @@ class User(AbstractUser):
     ename = models.CharField("영문이름", max_length=20)
     rrn = models.CharField("주민등록번호", max_length=13)
     tel = models.CharField("연락처", max_length=12)
-    tier = models.CharField("티어", max_length=20)
+    tier = models.CharField("티어", default=1 ,max_length=20)
     e_active = models.BooleanField(default=False)
     status = models.CharField(max_length=16, default="일반",
         choices=(
