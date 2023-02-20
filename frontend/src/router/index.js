@@ -52,7 +52,7 @@ const routes = [
     },
     {
         path: "/mission",
-        name: "misson",
+        name: "mission",
         component: MissionView,
     },
     {
