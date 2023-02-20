@@ -23,7 +23,7 @@ class UserAuth:
 
     def get_user(self, pk):
         try:
-            member = User.objects.get(pk=pk)
+            user = User.objects.get(pk=pk)
         except User.DoesNotExist:
             return None
-        return member # if member.is_active and member.status == '일반' else None
+        return user # if user.is_active and user.status == '일반' else None

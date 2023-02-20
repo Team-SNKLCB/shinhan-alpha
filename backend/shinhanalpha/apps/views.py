@@ -20,7 +20,6 @@ class AppsListView(
 
     def get_queryset(self):
         apps = Apps.objects.all()
-
         if 'name' in self.request.query_params:
             name = self.request.query_params['name']
             apps = apps.filter(name__contains=name)
