@@ -1,5 +1,7 @@
 <template>
-    <img class="phone-header" src="../assets/PhoneHeader.png" />
+  <div class="phone-header">
+    <img class="header-image" src="../assets/PhoneHeader.png" />
+  </div>
 </template>
 
 <script>
@@ -8,9 +10,14 @@ export default {};
 
 <style>
 .phone-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 40px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  z-index: 10;
+}
+.header-image {
+  width: 320px;
+  height: 40px;
 }
 </style>
