@@ -1,5 +1,6 @@
 <template>
     <phone-header></phone-header>
+    <div class="top-bar"></div>
 </template>
 
 <script>
@@ -11,4 +12,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.top-bar {
+    display: flex;
+}
+</style>
