@@ -1,13 +1,14 @@
 from rest_framework import generics, status, mixins
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserAppsSerializer, UserRewardSerializer
+from .serializers import UserSerializer, UserAppsSerializer, UserRewardSerializer, UserMissionSerializer, UserPointSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
 from django.conf import settings
-from .models import User, UserApps, UserReward
+from .models import User, UserApps, UserReward, UserMission
 from apps.models import Apps
 from reward.models import Reward
+from mission.models import Mission
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
@@ -57,6 +58,8 @@ class UserListView(
             UserApps(user=user, app=app).save()
         for reward in Reward.objects.all():
             UserReward(user=user, reward=reward).save()
+        for mission in Mission.objects.all():
+            UserMission(user=user, mission=mission).save()
         return res
     
 class UserDetailView(
@@ -121,3 +124,51 @@ class UserRewardView(
     
     def put(self, request, *args, **kwargs):
         return self.partial_update(request, args, kwargs)
+    
+class UserMissionView(
+    mixins.ListModelMixin, 
+    mixins.UpdateModelMixin,
+    generics.GenericAPIView,
+):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserMissionSerializer
+
+    def get_queryset(self):
+        user_misson = UserMission.objects
+        print(self.request.user)
+        user_misson = user_misson.filter(user=self.request.user) \
+            .select_related('mission', 'user')
+        return user_misson.order_by('id')
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, args, kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, args, kwargs)
+    
+
+
+class UserPointView(
+    mixins.CreateModelMixin, 
+    mixins.ListModelMixin, 
+    mixins.UpdateModelMixin,
+    generics.GenericAPIView,
+):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserPointSerializer
+
+    def get_queryset(self):
+        user_misson = UserMission.objects
+        print(self.request.user)
+        user_misson = user_misson.filter(user=self.request.user) \
+            .select_related('mission', 'user')
+        return user_misson.order_by('id')
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, args, kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, args, kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, args, kwargs)

@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'user.apps.UserConfig',
     'apps.apps.AppsConfig',
-    # 'mission.apps.MissionConfig',
+    'mission.apps.MissionConfig',
     # 'stock.apps.StockConfig',
     'reward.apps.RewardConfig',
     # 'bank.apps.BankConfig',

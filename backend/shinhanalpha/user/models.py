@@ -10,7 +10,7 @@ class User(AbstractUser):
     ename = models.CharField("영문이름", max_length=20)
     rrn = models.CharField("주민등록번호", max_length=13)
     tel = models.CharField("연락처", max_length=12)
-    tier = models.CharField("영문이름", max_length=20)
+    tier = models.CharField("티어", max_length=20)
     e_active = models.BooleanField(default=False)
     status = models.CharField(max_length=16, default="일반",
         choices=(
@@ -26,15 +26,16 @@ class User(AbstractUser):
         verbose_name = '회원'
         verbose_name_plural = '회원'
 
-class UserPoint(models.Model):
+class UserMission(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
-    # mission = models.ForeignKey('mission.Mission', on_delete=models.CASCADE, verbose_name='미션')
+    mission = models.ForeignKey('mission.Mission', on_delete=models.CASCADE, verbose_name='미션')
+    flag = models.IntegerField(default=0, verbose_name='미션상태')
     tstamp = models.DateTimeField(auto_now_add=True, verbose_name='등록일시')
 
     class Meta:
-        db_table = 'shinhan_user_point'
-        verbose_name = '회원 포인트'
-        verbose_name_plural = '회원 포인트'
+        db_table = 'shinhan_user_misson'
+        verbose_name = '회원 미션'
+        verbose_name_plural = '회원 미션'
 
 class UserApps(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
