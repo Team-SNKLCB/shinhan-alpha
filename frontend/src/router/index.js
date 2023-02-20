@@ -7,6 +7,7 @@ import EasyMenuView from "../views/EasyMenuView.vue";
 import TierMainView from "../views/TierMainView.vue";
 import MissionView from "../views/MissionView.vue";
 import InviteFriendView from "../views/InviteFriendView.vue";
+import TakeRewardView from "../views/TakeRewardView.vue";
 const routes = [
     {
         path: "/about",
@@ -55,6 +56,11 @@ const routes = [
         path: "/invite",
         name: "invite",
         component: InviteFriendView,
+    },
+    {
+        path: "take_reward",
+        name: "take_reward",
+        component: TakeRewardView,
     },
 ];
 
