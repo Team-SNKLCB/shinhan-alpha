@@ -10,6 +10,7 @@ from apps.models import Apps
 from reward.models import Reward
 from mission.models import Mission
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Sum
 
 # Create your views here.
 
@@ -135,15 +136,23 @@ class UserMissionView(
 
     def get_queryset(self):
         user_misson = UserMission.objects
-        print(self.request.user)
         user_misson = user_misson.filter(user=self.request.user) \
             .select_related('mission', 'user')
+        # print(user_misson)
         return user_misson.order_by('id')
 
     def get(self, request, *args, **kwargs):
         return self.list(request, args, kwargs)
     
     def put(self, request, *args, **kwargs):
+        id = request.data.get('id')
+        flag = request.data.get('flag')
+        # print(id, flag)
+        # print(request.user)
+        print(UserMission.flag)
+        # user_misson = UserMission.objects.get(id=id, user=self.request.user)
+        # print(user_misson.id, user_misson.flag)
+        # user_misson.flag = flag
         return self.partial_update(request, args, kwargs)
     
 
@@ -172,3 +181,24 @@ class UserPointView(
     
     def post(self, request, *args, **kwargs):
         return self.create(request, args, kwargs)
+
+# outer join을 못해서 현재로서는 구현 안됨
+class UserTotalPointView(
+    mixins.ListModelMixin, 
+    generics.GenericAPIView,
+):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserPointSerializer
+
+    def get_queryset(self):
+        sum = UserMission.objects.filter(user=self.request.user) \
+            .select_related('mission') \
+            # .annotate(total_point=Sum('mission_point'))
+        print(sum)
+        # sum = sum.aggregate(Sum('mission_point'))
+            # .aggregate(sum['mission_point__sum'])
+        # print(sum)
+        return sum.order_by('id')
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, args, kwargs)
