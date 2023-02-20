@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-1k)##4e=hpsrua3d4nc&wa%2g2nblftfws404ul2y@2r6-d*8b
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "127.0.0.1",
     "192.168.10.121",
 ]
 
@@ -43,9 +44,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'user.apps.UserConfig',
     'apps.apps.AppsConfig',
-    # 'mission.apps.MissionConfig',
+    'mission.apps.MissionConfig',
     # 'stock.apps.StockConfig',
-    # 'reward.apps.RewardConfig',
+    'reward.apps.RewardConfig',
     # 'bank.apps.BankConfig',
     # 'invite.apps.InviteConfig',
 ]
@@ -149,6 +150,12 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=2),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=1),
     "AUTH_HEADER_TYPES": ("JWT", ),
+
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+
+    'AUTH_COOKIE_SECURE': False,
+    'AUTH_COOKIE_HTTP_ONLY' : True,
+    'AUTH_COOKIE_PATH': '/',
 }
 
 AUTH_USER_MODEL = "user.User"

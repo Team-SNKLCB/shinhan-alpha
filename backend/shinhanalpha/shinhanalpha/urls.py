@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/user',include('user.urls')),
     path('api/apps',include('apps.urls')),
-    # path('api/member',include('member.urls')),
-    # path('api/token', TokenObtainPairView.as_view()),
+    path('api/reward',include('reward.urls')),
+    path('api/mission',include('mission.urls')),
+    path('api/token', TokenObtainPairView.as_view()),
 ]

@@ -19,13 +19,7 @@ class AppsListView(
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        apps = Apps.objects.all()
-
-        if 'name' in self.request.query_params:
-            name = self.request.query_params['name']
-            apps = apps.filter(name__contains=name)
-
-        return apps.order_by('id')
+        return Apps.objects.all().order_by('id')
 
     def get(self, request, *args, **kwargs):
         return self.list(request, args, kwargs)
@@ -43,7 +37,8 @@ class AppsDetailView(
     serializer_class = AppsSerializer
 
     def get_queryset(self):
-        return Apps.objects.all().order_by('id')
+        apps = Apps.objects.all()
+        return apps.order_by('id')
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, args, kwargs)
