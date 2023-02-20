@@ -8,6 +8,9 @@ import TierMainView from "../views/TierMainView.vue";
 import MissionView from "../views/MissionView.vue";
 import InviteFriendView from "../views/InviteFriendView.vue";
 import TakeRewardView from "../views/TakeRewardView.vue";
+import SelectLoginTypeView from "../views/SelectLoginTypeView.vue";
+import LoginView from "../views/LoginView.vue";
+import MakeAccountView from "../views/MakeAccountView.vue";
 const routes = [
     {
         path: "/about",
@@ -61,6 +64,21 @@ const routes = [
         path: "/take_reward",
         name: "take_reward",
         component: TakeRewardView,
+    },
+    {
+        path: "/select_login",
+        name: "select_login",
+        component: SelectLoginTypeView,
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: LoginView,
+    },
+    {
+        path: "/make_account",
+        name: "make_account",
+        component: MakeAccountView,
     },
 ];
 
