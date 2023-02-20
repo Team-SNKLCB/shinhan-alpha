@@ -1,6 +1,6 @@
 <template>
     <div class="phone-header">
-        <img src="../assets/PhoneHeader.png" />
+        <img class="header-image" src="../assets/PhoneHeader.png" />
     </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {};
 .phone-header {
     position: fixed;
     top: 0;
+    width: 320px;
+    height: 40px;
+    z-index: 10;
+}
+
+.header-image {
     width: 320px;
     height: 40px;
 }
