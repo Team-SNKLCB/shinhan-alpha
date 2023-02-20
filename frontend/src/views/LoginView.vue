@@ -11,9 +11,9 @@
             <p style="font-size: 12px; color: #666464">공동인증서 비밀번호를 입력해주세요.</p>
         </div>
         <div class="login-form">
-            <input id="id" v-bind="id" placeholder="아이디" />
-            <input id="password" v-bind="password" placeholder="비밀번호" />
-            <input id="finance_password" v-bind="finance_password" placeholder="공동인증서 비밀번호" /><br />
+            <input id="id" v-model="id" placeholder="아이디" />
+            <input id="password" v-model="password" placeholder="비밀번호" />
+            <input id="finance_password" v-model="finance_password" placeholder="공동인증서 비밀번호" /><br />
             <div style="display: flex; justify-content: right; align-items: center; margin-top: 10px; margin-right: 15px">
                 <span style="font-size: 12px; margin-bottom: 8px; margin-right: 5px; color: #65666b">아이디저장</span>
                 <img @click="changeToggle" v-if="save_toggle === false" src="../assets/off-btn.png" style="width: 80px; height: 40px" />
