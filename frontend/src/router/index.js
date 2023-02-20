@@ -58,7 +58,7 @@ const routes = [
         component: InviteFriendView,
     },
     {
-        path: "take_reward",
+        path: "/take_reward",
         name: "take_reward",
         component: TakeRewardView,
     },
