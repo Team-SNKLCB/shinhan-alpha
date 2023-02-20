@@ -19,6 +19,5 @@ export default {
 .ord-menu {
     margin-top: 40px;
     margin-bottom: 45px;
-    width: 300px;
 }
 </style>

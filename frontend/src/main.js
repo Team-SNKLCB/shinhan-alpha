@@ -13,8 +13,9 @@ import { faWifi } from "@fortawesome/free-solid-svg-icons";
 import { faBatteryFull } from "@fortawesome/free-solid-svg-icons";
 import { faSignal } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 /* add icons to the library */
-library.add(faWifi, faBatteryFull, faSignal, faBars, faChevronRight);
+library.add(faWifi, faBatteryFull, faSignal, faBars, faChevronRight, faChevronLeft, faX);
 
 createApp(App).use(store).use(router).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
