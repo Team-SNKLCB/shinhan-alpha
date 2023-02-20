@@ -17,7 +17,7 @@
             <router-link to="/mission"
                 ><div class="link-btn">내 자산 <br />확인하기</div></router-link
             >
-            <router-link to="/invite_friend"
+            <router-link to="/invite"
                 ><div class="link-btn">친구 <br />추천하기</div></router-link
             >
         </div>
