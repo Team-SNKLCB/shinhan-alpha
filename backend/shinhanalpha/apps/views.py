@@ -16,7 +16,7 @@ class AppsListView(
     generics.GenericAPIView,
 ):
     serializer_class = AppsSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Apps.objects.all().order_by('id')
