@@ -14,9 +14,7 @@ class UserAuth:
             return None
 
         if check_password(password, user.password):
-            
             if user.status == '일반':
-                print("A")
                 return user
 
         return None

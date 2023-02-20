@@ -9,6 +9,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "shinhanalpha.settings")
 django.setup()
 
 # django 사용 가능
+# 아래는 예시
 # import random
 # from member.models. import Stock
 
