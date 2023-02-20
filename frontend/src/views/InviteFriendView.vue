@@ -7,8 +7,8 @@
     <div class="invite-info">
         <p style="font-weight: 600; color: #b8b8b8; font-size: 10px; margin-bottom: 10px">신한 알파의 주린이 서비스를 모르는 친구가 있나요?</p>
         <p style="font-weight: 600; color: black; font-size: 13px; margin-bottom: 20px">친구에게 주린이 서비스를 알리면<br />친구도 나도 포인트를 받아요</p>
-        <p style="font-weight: 600; color: #979797; font-size: 9px; margin-bottom: 8px">친구 휴대폰에 신한 알파를 설치해주세요!</p>
-        <p style="font-weight: 600; color: #979797; font-size: 9px">계좌개설 후 초대코드를 입력하면 완료!</p>
+        <p style="font-weight: 400; color: #979797; font-size: 9px; margin-bottom: 8px">친구 휴대폰에 신한 알파를 설치해주세요!</p>
+        <p style="font-weight: 400; color: #979797; font-size: 9px">계좌개설 후 초대코드를 입력하면 완료!</p>
     </div>
     <div class="code-div">
         <p style="color: #979797; font-weight: 600; font-size: 9px">초대코드</p>
