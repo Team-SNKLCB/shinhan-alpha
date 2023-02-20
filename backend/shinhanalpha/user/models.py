@@ -26,7 +26,7 @@ class User(AbstractUser):
         verbose_name = '회원'
         verbose_name_plural = '회원'
 
-class Point(models.Model):
+class UserPoint(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
     # mission = models.ForeignKey('mission.Mission', on_delete=models.CASCADE, verbose_name='미션')
     tstamp = models.DateTimeField(auto_now_add=True, verbose_name='등록일시')
@@ -45,7 +45,7 @@ class UserApps(models.Model):
         verbose_name = '회원 메뉴'
         verbose_name_plural = '회원 메뉴'
 
-class SBLog(models.Model):
+class UserSB(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
     # stock = models.ForeignKey('stock.Stock', on_delete=models.CASCADE, verbose_name='주식종목')
     tstamp = models.DateTimeField(auto_now_add=True, verbose_name='등록일시')
@@ -54,9 +54,9 @@ class SBLog(models.Model):
         verbose_name = '회원 매매 로그'
         verbose_name_plural = '회원 매매 로그'
 
-class RewardLog(models.Model):
+class UserReward(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
-    # reward = models.ForeignKey('reward.Reward', on_delete=models.CASCADE, verbose_name='리워드')
+    reward = models.ForeignKey('reward.Reward', on_delete=models.CASCADE, verbose_name='리워드')
     flag = models.IntegerField(default=0, verbose_name='리워드상태')
     class Meta:
         db_table = 'shinhan_user_reward'

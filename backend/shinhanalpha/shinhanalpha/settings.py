@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'apps.apps.AppsConfig',
     # 'mission.apps.MissionConfig',
     # 'stock.apps.StockConfig',
-    # 'reward.apps.RewardConfig',
+    'reward.apps.RewardConfig',
     # 'bank.apps.BankConfig',
     # 'invite.apps.InviteConfig',
 ]

@@ -1,12 +1,13 @@
 from rest_framework import generics, status, mixins
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserAppsSerializer
+from .serializers import UserSerializer, UserAppsSerializer, UserRewardSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
 from django.conf import settings
-from .models import User, UserApps
+from .models import User, UserApps, UserReward
 from apps.models import Apps
+from reward.models import Reward
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
@@ -54,7 +55,8 @@ class UserListView(
 
         for app in Apps.objects.all():
             UserApps(user=user, app=app).save()
-
+        for reward in Reward.objects.all():
+            UserReward(user=user, reward=reward).save()
         return res
     
 class UserDetailView(
@@ -92,6 +94,27 @@ class UserAppsView(
         userapps = userapps.filter(user=self.request.user) \
             .select_related('app', 'user')
         return userapps.order_by('id')
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, args, kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.partial_update(request, args, kwargs)
+    
+class UserRewardView(
+    mixins.ListModelMixin, 
+    mixins.UpdateModelMixin,
+    generics.GenericAPIView,
+):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserRewardSerializer
+
+    def get_queryset(self):
+        user_reward = UserReward.objects
+        print(self.request.user)
+        user_reward = user_reward.filter(user=self.request.user) \
+            .select_related('reward', 'user')
+        return user_reward.order_by('id')
 
     def get(self, request, *args, **kwargs):
         return self.list(request, args, kwargs)
