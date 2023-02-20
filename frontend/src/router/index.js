@@ -4,6 +4,8 @@ import ModeSelectView from "../views/ModeSelectView.vue";
 import OrdinaryMenuView from "../views/OrdinaryMenuView.vue";
 import ModeTutorialView from "../views/ModeTutorialView.vue";
 import EasyMenuView from "../views/EasyMenuView.vue";
+import TierMainView from "../views/TierMainView.vue";
+import MissionView from "../views/MissionView.vue";
 const routes = [
     {
         path: "/about",
@@ -19,8 +21,8 @@ const routes = [
         component: SplashView,
     },
     {
-        path: "/modeSelect",
-        name: "modeSelect",
+        path: "/mode_select",
+        name: "mode_select",
         component: ModeSelectView,
     },
     {
@@ -37,6 +39,16 @@ const routes = [
         path: "/easy_menu",
         name: "easy_menu",
         component: EasyMenuView,
+    },
+    {
+        path: "/tier_main",
+        name: "tier_main",
+        component: TierMainView,
+    },
+    {
+        path: "/mission",
+        name: "misson",
+        component: MissionView,
     },
 ];
 
