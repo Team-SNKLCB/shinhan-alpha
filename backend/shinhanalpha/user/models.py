@@ -11,7 +11,7 @@ class User(AbstractUser):
     rrn = models.CharField("주민등록번호", max_length=13)
     tel = models.CharField("연락처", max_length=12)
     tier = models.CharField("영문이름", max_length=20)
-    is_active = models.BooleanField(default=False)
+    e_active = models.BooleanField(default=False)
     status = models.CharField(max_length=16, default="일반",
         choices=(
             ('일반','일반'),
@@ -63,7 +63,7 @@ class RewardLog(models.Model):
         verbose_name = '회원 리워드'
         verbose_name_plural = '회원 리워드'
 
-class Bank(models.Model):
+class UserBank(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
     # bank = models.ForeignKey('bank.Bank', on_delete=models.CASCADE, verbose_name='계좌')
     class Meta:
@@ -71,7 +71,7 @@ class Bank(models.Model):
         verbose_name = '회원 계좌'
         verbose_name_plural = '회원 계좌'
 
-class Invite(models.Model):
+class UserInvite(models.Model):
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, verbose_name='회원')
     # invite = models.ForeignKey('invite.Invite', on_delete=models.CASCADE, verbose_name='초대')
     class Meta:
