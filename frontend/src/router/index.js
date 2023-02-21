@@ -86,6 +86,11 @@ const routes = [
         name: "menu_setting",
         component: MenuSettingView,
     },
+    {
+        path: "/shinhan_popular",
+        name: "shinhan_popular",
+        component: ShinhanPopular,
+    },
 ];
 
 const router = createRouter({
