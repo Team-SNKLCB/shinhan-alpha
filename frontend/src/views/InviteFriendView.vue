@@ -76,4 +76,8 @@ export default {
     margin-top: 120px;
     line-height: 40px;
 }
+
+a {
+    color: black;
+}
 </style>

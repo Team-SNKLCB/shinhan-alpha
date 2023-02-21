@@ -6,6 +6,11 @@
 import PhoneHeader from "@/components/PhoneHeader.vue";
 export default {
     components: { PhoneHeader },
+    created() {
+        setTimeout(() => {
+            this.$router.push("/mode_select");
+        }, 3000);
+    },
 };
 </script>
 
