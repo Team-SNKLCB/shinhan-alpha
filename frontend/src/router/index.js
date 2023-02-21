@@ -13,6 +13,7 @@ import LoginView from "../views/LoginView.vue";
 import MakeAccountView from "../views/MakeAccountView.vue";
 import ShinhanPopular from "../views/ShinhanPopular.vue";
 import CheckMyAccount from "../views/CheckMyAccount.vue";
+import SendMoney from "../views/SendMoney.vue";
 const routes = [
   {
     path: "/about",
@@ -92,6 +93,11 @@ const routes = [
     path: "/check_account",
     name: "check_account",
     component: CheckMyAccount,
+  },
+  {
+    path: "/send_money",
+    name: "send_money",
+    component: SendMoney,
   },
 ];
 
