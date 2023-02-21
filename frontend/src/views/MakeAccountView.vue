@@ -5,7 +5,7 @@
         <font-awesome-icon style="font-size: 20px" @click="goBack" icon="fa-solid fa-x" />
     </div>
 
-    <div style="margin-top: 10px; background-color: #e9f0ff; height: 625px">
+    <div style="margin-top: 10px; background-color: #e9f0ff; height: 670px">
         <div class="title">
             <p>기본 정보 입력</p>
         </div>
@@ -14,21 +14,22 @@
             <input id="name" v-model="name" placeholder="이름" />
             <p>영문이름</p>
             <input id="english_name" v-model="english_name" placeholder="영어이름" />
-            <p>주민등록번호</p>
-            <input id="id_number" v-model="finance_password" placeholder="XXXXXX - XXXXXXX" /><br />
+            <p>주민등록번호('-' 제외)</p>
+            <input id="id_number" v-model="id_number" placeholder="XXXXXX - XXXXXXX" /><br />
             <p>휴대폰번호('-' 제외)</p>
             <input id="tel" v-model="tel" placeholder="010-XXXX-XXXX" />
             <p>아이디</p>
             <input id="id" v-model="id" placeholder="아이디" />
             <p>비밀번호(4자리)</p>
-            <input id="password" v-model="password" placeholder="비밀번호" />
+            <input type="password" id="password" v-model="password" placeholder="비밀번호" />
         </div>
-        <div style="background-color: #4a8ce2; color: white" class="make-account-btn">계좌개설</div>
+        <div @click="makeAccount" style="background-color: #4a8ce2; color: white" class="make-account-btn">계좌개설</div>
     </div>
 </template>
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
+import axios from "axios";
 export default {
     data() {
         return {
@@ -48,6 +49,21 @@ export default {
 
         changeToggle() {
             this.save_toggle = !this.save_toggle;
+        },
+
+        makeAccount() {
+            axios
+                .post("http://127.0.0.1:8000/api/user", {
+                    password: this.password,
+                    name: this.name,
+                    ename: this.english_name,
+                    rrn: this.id_number,
+                    tel: this.tel,
+                    tier: 1,
+                    username: this.id,
+                })
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err));
         },
     },
 };
