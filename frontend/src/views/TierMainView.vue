@@ -4,14 +4,17 @@
         <router-link to="easy_menu"><font-awesome-icon icon="fa-solid fa-x" /></router-link>
     </div>
     <div class="tier-head">
-        <img id="tier-image" :src="tier[0].tier_image" />
-        <div id="tier-descript">
-            <p>나의 티어는?</p>
-            <p class="my-tier">{{ tier[0].tier }}</p>
+        <div style="position: relative">
+            <img id="tier-image" :src="tier[0].tier_image" />
+            <div id="tier-descript">
+                <p>나의 티어는?</p>
+                <p class="my-tier">{{ tier[0].tier }}</p>
+            </div>
+            <circle-progress size="302" style="position: absolute; left: 10px; top: 32px" :percent="40" fill-color="#354ef2" border-width="20" />
         </div>
         <div id="link-btn-div">
-            <router-link to="/mission"
-                ><div class="link-btn">포인트 <br />획득하기</div></router-link
+            <router-link to="/take_reward"
+                ><div class="link-btn">리워드 <br />수령하기</div></router-link
             >
             <router-link to="/mission" class="link-btn"><div>미션 확인</div></router-link>
             <router-link to="/mission"
@@ -38,6 +41,8 @@
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
+import "vue3-circle-progress/dist/circle-progress.css";
+import CircleProgress from "vue3-circle-progress";
 export default {
     data() {
         return {
@@ -72,6 +77,7 @@ export default {
     },
     components: {
         PhoneHeader,
+        CircleProgress,
     },
 };
 </script>
@@ -148,5 +154,6 @@ export default {
 }
 a {
     text-decoration: none;
+    color: black;
 }
 </style>
