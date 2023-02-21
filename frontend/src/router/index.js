@@ -12,6 +12,7 @@ import SelectLoginTypeView from "../views/SelectLoginTypeView.vue";
 import LoginView from "../views/LoginView.vue";
 import MakeAccountView from "../views/MakeAccountView.vue";
 import ShinhanPopular from "../views/ShinhanPopular.vue";
+import CheckMyAccount from "../views/CheckMyAccount.vue";
 const routes = [
   {
     path: "/about",
@@ -86,6 +87,11 @@ const routes = [
     path: "/shinhan_popular",
     name: "shinhan_popular",
     component: ShinhanPopular,
+  },
+  {
+    path: "/check_account",
+    name: "check_account",
+    component: CheckMyAccount,
   },
 ];
 
