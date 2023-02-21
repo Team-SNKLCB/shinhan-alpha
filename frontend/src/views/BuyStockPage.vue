@@ -66,11 +66,35 @@
           >
         </div>
       </div>
+      <div class="prize_bar">
+        <div>
+          <p style="font-size: 9px; font-weight: bold">쿠폰선택</p>
+          <p style="font-size: 9px; font-weight: bold; color: #979797">
+            주문금액
+          </p>
+        </div>
+      </div>
+      <div class="now_prize">
+        <span style="font-weight: bold">{{ stock_sum }}</span>
+        <span style="font-size: 13px"> 원</span>
+      </div>
       <font-awesome-icon
         icon="fa-soild fa-chevron-left"
         @click="goBack"
         class="back_stock"
       />
+    </div>
+    <div class="buy_bar">
+      <span
+        style="
+          color: white;
+          position: absolute;
+          right: 59px;
+          top: 3px;
+          font-weight: bold;
+        "
+        >현금매수</span
+      >
     </div>
   </div>
 </template>
@@ -86,21 +110,19 @@ export default {
       stock_prize: 121100,
     };
   },
-
   methods: {
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
     },
     add_stock() {
       this.stock_num += 1;
+      this.stock_sum += this.stock_prize;
     },
     sub_stock() {
       if (this.stock_num > 0) {
         this.stock_num -= 1;
       }
-    },
-    prize_sum() {
-      this.stock_sum = 121100 * this.stock_num;
+      this.stock_sum -= this.stock_prize;
     },
     add_prize() {
       this.stock_prize += 100;
@@ -138,5 +160,25 @@ export default {
   top: 380px;
   z-index: 3;
   border-radius: 10px;
+}
+.prize_bar {
+  display: flex;
+  position: absolute;
+  right: 150px;
+  top: 500px;
+}
+.now_prize {
+  position: absolute;
+  right: 15px;
+  top: 508px;
+}
+.buy_bar {
+  height: 34px;
+  width: 179px;
+  position: absolute;
+  background-color: red;
+  border-radius: 3px;
+  top: 575px;
+  right: 12px;
 }
 </style>
