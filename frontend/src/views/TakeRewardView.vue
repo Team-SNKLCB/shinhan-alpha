@@ -6,12 +6,13 @@
           <font-awesome-icon icon="fa-solid fa-x" @click="take_click = false" />
         </div>
         <br />
+
         <img src="../assets/silver_modal.png" /><br />
         <p style="font-size: 18px; font-weight: bold">
           <span style="color: #979797">실버</span> 달성을 축하합니다!
         </p>
-        <br />
-        <p style="font-size: 22px; font-weight: bold">
+
+        <p style="font-size: 20px; font-weight: bold">
           주식거래 수수료 우대 혜택
         </p>
       </div>
@@ -20,8 +21,107 @@
     <div class="back_page">
       <font-awesome-icon icon="fa-soild fa-chevron-left" @click="goBack" />
     </div>
-    <div style="margin-top: 40px">
-      <img id="img_move" src="../assets/tier_degree.png" />
+    <div class="tier_degree" style="margin-top: 40px">
+      <div
+        v-if="user_tier === 0"
+        class="progress gage"
+        role="progressbar"
+        aria-label="Animated striped example"
+        aria-valuenow="20"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          style="width: 20%"
+        ></div>
+      </div>
+      <div
+        v-if="user_tier === 1"
+        class="progress gage"
+        role="progressbar"
+        aria-label="Animated striped example"
+        aria-valuenow="40"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          style="width: 40%"
+        ></div>
+      </div>
+      <div
+        v-if="user_tier === 2"
+        class="progress gage"
+        role="progressbar"
+        aria-label="Animated striped example"
+        aria-valuenow="60"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          style="width: 60%"
+        ></div>
+      </div>
+      <div
+        v-if="user_tier === 3"
+        class="progress gage"
+        role="progressbar"
+        aria-label="Animated striped example"
+        aria-valuenow="80"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          style="width: 80%"
+        ></div>
+      </div>
+      <div
+        v-if="user_tier === 4"
+        class="progress gage"
+        role="progressbar"
+        aria-label="Animated striped example"
+        aria-valuenow="100"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          style="width: 100%"
+        ></div>
+      </div>
+      <img class="bronze_star" src="../assets/bronze_star.png" />
+      <img class="silver_star" src="../assets/silver_star.png" />
+      <img class="gold_star" src="../assets/gold_star.png" />
+      <img class="platinum_star" src="../assets/platinum_star.png" />
+      <img class="dia_star" src="../assets/dia_star.png" />
+      <img
+        v-if="user_tier === 0"
+        class="bronze_bear"
+        src="../assets/tier_bear.png"
+      />
+      <img
+        v-if="user_tier === 1"
+        class="silver_bear"
+        src="../assets/tier_bear.png"
+      />
+      <img
+        v-if="user_tier === 2"
+        class="gold_bear"
+        src="../assets/tier_bear.png"
+      />
+      <img
+        v-if="user_tier === 3"
+        class="platinum_bear"
+        src="../assets/tier_bear.png"
+      />
+      <img
+        v-if="user_tier === 4"
+        class="dia_bear"
+        src="../assets/tier_bear.png"
+      />
     </div>
     <div v-if="user_click === true" id="item">
       <!--검회-->
@@ -86,6 +186,7 @@ export default {
       user_click: true,
       take_click: false,
       index: ["a", "b", "c"],
+      user_tier: 2,
       rewards: [
         {
           reward_title: "브론즈 달성",
@@ -174,7 +275,7 @@ li {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  height: 20px;
+  height: 30px;
   width: 60px;
 }
 
@@ -185,7 +286,7 @@ li {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  height: 20px;
+  height: 30px;
   width: 60px;
 }
 
@@ -196,7 +297,7 @@ li {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  height: 20px;
+  height: 30px;
   width: 60px;
 }
 
@@ -225,6 +326,7 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 .overlay .popup {
@@ -242,5 +344,65 @@ li {
   margin-top: 40px;
   text-align: left;
   margin-left: 10px;
+}
+.gage {
+  width: 233px;
+  position: absolute;
+  left: 42px;
+  top: 150px;
+}
+.tier_degree {
+  width: 320px;
+  height: 154px;
+}
+.bronze_star {
+  position: absolute;
+  left: 71px;
+  top: 170px;
+}
+.silver_star {
+  position: absolute;
+  left: 117.5px;
+  top: 167px;
+}
+.gold_star {
+  position: absolute;
+  left: 167px;
+  top: 167px;
+}
+.platinum_star {
+  position: absolute;
+  left: 211px;
+  top: 165px;
+}
+.dia_star {
+  position: absolute;
+  left: 256px;
+  top: 165px;
+}
+.silver_bear {
+  position: absolute;
+  left: 105px;
+  top: 90px;
+}
+.bronze_bear {
+  position: absolute;
+  left: 60px;
+  top: 90px;
+}
+.gold_bear {
+  position: absolute;
+  left: 153px;
+  top: 90px;
+}
+.platinum_bear {
+  position: absolute;
+  left: 198px;
+  top: 90px;
+}
+.dia_bear {
+  position: absolute;
+  left: 245px;
+  top: 90px;
 }
 </style>
