@@ -186,7 +186,7 @@ export default {
       user_click: true,
       take_click: false,
       index: ["a", "b", "c"],
-      user_tier: 2,
+      user_tier: 1,
       rewards: [
         {
           reward_title: "브론즈 달성",
