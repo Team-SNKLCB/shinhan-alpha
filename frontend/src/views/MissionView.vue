@@ -1,78 +1,83 @@
 <template>
-  <phone-header></phone-header>
-  <div class="top-background">
-    <router-link to="/tier_main"
-      ><font-awesome-icon
-        style="
-          position: absolute;
-          left: 15;
-          top: 58;
-          font-size: 20px;
-          color: white;
-        "
-        icon="fa-solid fa-chevron-left"
-    /></router-link>
-    <div class="title-div">
-      <p><span style="color: white">이승현</span> 님은</p>
-      <p>
-        <span style="color: gold">골드</span>
-        <span style="color: white">가는중 !</span>
-      </p>
+  <div>
+    <phone-header></phone-header>
+    <div class="top-background">
+      <router-link to="/tier_main"
+        ><font-awesome-icon
+          style="
+            position: absolute;
+            left: 15;
+            top: 58;
+            font-size: 20px;
+            color: white;
+          "
+          icon="fa-solid fa-chevron-left"
+      /></router-link>
+      <div class="title-div">
+        <p><span style="color: white">이승현</span> 님은</p>
+        <p>
+          <span style="color: gold">골드</span>
+          <span style="color: white">가는중 !</span>
+        </p>
+      </div>
+      <div class="info-div">
+        <p>
+          신규 미션을 진행하고<br />
+          포인트를 얻어보세요 !
+        </p>
+        <p style="margin-top: 20px">
+          다음 등급까지
+          <span style="color: rgba(53, 78, 242, 0.9)">152P</span> 남았어요.
+        </p>
+      </div>
     </div>
-    <div class="info-div">
-      <p>
-        신규 미션을 진행하고<br />
-        포인트를 얻어보세요 !
-      </p>
-      <p style="margin-top: 20px">
-        다음 등급까지
-        <span style="color: rgba(53, 78, 242, 0.9)">152P</span> 남았어요.
-      </p>
-    </div>
-  </div>
-  <div id="mission-div">
-    <div
-      class="mission-list"
-      v-for="(mission, i) in missions"
-      :key="mission.mission_name"
-    >
-      <p class="mission-title">{{ mission.mission_title }}</p>
-      <p class="mission-info">{{ mission.mission_info }}</p>
+    <div id="mission-div">
       <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-top: 30px;
-        "
+        class="mission-list"
+        v-for="(mission, i) in missions"
+        :key="mission.mission_name"
       >
-        <div class="mission-point">{{ mission.mission_point }}P</div>
-        <img
-          v-if="mission.mission_flag === 1"
-          style="width: 44px; height: 44px"
-          src="../assets/mission-ing.png"
-        />
-        <img
-          v-else-if="mission.mission_flag === 2"
-          style="width: 44px; height: 44px"
-          @click="changeStatus(i)"
-          src="../assets/mission-end.png"
-        />
-        <div style="position: relative" v-else-if="mission.mission_flag === 3">
+        <p class="mission-title">{{ mission.mission_title }}</p>
+        <p class="mission-info">{{ mission.mission_info }}</p>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 30px;
+          "
+        >
+          <div class="mission-point">{{ mission.mission_point }}P</div>
           <img
+            v-if="mission.mission_flag === 1"
             style="width: 44px; height: 44px"
-            src="../assets/mission-completed.png"
+            src="../assets/mission-ing.png"
           />
           <img
-            style="
-              width: 80px;
-              height: 60px;
-              position: absolute;
-              left: -15px;
-              bottom: 0px;
-            "
-            src="../assets/complete_stamp.png"
+            v-else-if="mission.mission_flag === 2"
+            style="width: 44px; height: 44px"
+            @click="changeStatus(i)"
+            src="../assets/mission-end.png"
           />
+          <div
+            style="position: relative"
+            v-else-if="mission.mission_flag === 3"
+          >
+            <img
+              style="width: 44px; height: 44px"
+              src="../assets/mission-completed.png"
+            />
+            <img
+              style="
+                width: 80px;
+                height: 60px;
+                position: absolute;
+                left: -15px;
+                bottom: 0px;
+              "
+              src="../assets/complete_stamp.png"
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -7,18 +7,18 @@
     >
       <div>
         <font-awesome-icon icon="fa-soild fa-chevron-left" @click="goBack" />
-        <span style="font-size: 14px"> 전계좌현황 </span>
+        <span style="font-size: 14px"> 즉시이체 </span>
         <img style="height: 13px; width: 13px" src="../assets/down.png" />
       </div>
       <div style="display: flex; margin-right: 10px">
-        <div class="account_box">
-          <p style="font-size: 10px; color: white">총자산현황</p>
+        <div class="money_box">
+          <p style="font-size: 10px; color: white">가이드</p>
         </div>
-        <img style="width: 30px; height: 30px" src="../assets/more.png" />
       </div>
     </div>
-    <img style="width: 320px" src="../assets/account.png" />
+
     <div>
+      <img style="width: 320px" src="../assets/send_money.png" />
       <bottom-bar></bottom-bar>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default {
 };
 </script>
 <style scoped>
-.account_box {
+.money_box {
   display: flex;
   padding: 10px;
   background-color: black;
