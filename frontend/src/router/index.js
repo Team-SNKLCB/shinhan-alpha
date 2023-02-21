@@ -12,17 +12,11 @@ import SelectLoginTypeView from "../views/SelectLoginTypeView.vue";
 import LoginView from "../views/LoginView.vue";
 import MakeAccountView from "../views/MakeAccountView.vue";
 import MenuSettingView from "../views/MenuSettingView.vue";
+import AlphaLabView from "../views/AlphaLabView.vue";
+import ShinhanPopular from "../views/ShinhanPopular.vue";
 const routes = [
     {
-        path: "/about",
-        name: "about",
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-    },
-    {
-        path: "/splash",
+        path: "/",
         name: "splash",
         component: SplashView,
     },
@@ -90,6 +84,11 @@ const routes = [
         path: "/shinhan_popular",
         name: "shinhan_popular",
         component: ShinhanPopular,
+    },
+    {
+        path: "/alpha_lab",
+        name: "alpha_lab",
+        component: AlphaLabView,
     },
 ];
 
