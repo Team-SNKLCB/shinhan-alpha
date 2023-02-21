@@ -14,6 +14,10 @@ import MakeAccountView from "../views/MakeAccountView.vue";
 import MenuSettingView from "../views/MenuSettingView.vue";
 import AlphaLabView from "../views/AlphaLabView.vue";
 import ShinhanPopular from "../views/ShinhanPopular.vue";
+import CheckMyAccount from "../views/CheckMyAccount.vue";
+import SendMoney from "../views/SendMoney.vue";
+import RewardEvent from "../views/RewardEvent.vue";
+import BuyStockPage from "../views/BuyStockPage.vue";
 const routes = [
     {
         path: "/",
@@ -90,6 +94,7 @@ const routes = [
         name: "alpha_lab",
         component: AlphaLabView,
     },
+  
 ];
 
 const router = createRouter({

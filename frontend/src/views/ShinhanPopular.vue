@@ -1,15 +1,17 @@
 <template>
-  <phone-header></phone-header>
-  <div class="back_page" style="display: flex; align-items: center">
-    <font-awesome-icon icon="fa-soild fa-chevron-left" @click="goBack" />
-    <p style="font-size: 14px">신한인기종목</p>
-    <img style="height: 13px; width: 13x" src="../assets/down.png" />
-  </div>
   <div>
-    <img style="width: 320px" src="../assets/page1.png" />
-  </div>
-  <div>
-    <bottom-bar></bottom-bar>
+    <phone-header></phone-header>
+    <div class="back_page" style="display: flex; align-items: center">
+      <font-awesome-icon icon="fa-soild fa-chevron-left" @click="goBack" />
+      <span style="font-size: 14px"> 신한인기종목 </span>
+      <img style="height: 13px; width: 13x" src="../assets/down.png" />
+    </div>
+    <div>
+      <img style="width: 320px" src="../assets/page1.png" />
+    </div>
+    <div>
+      <bottom-bar></bottom-bar>
+    </div>
   </div>
 </template>
 <script>
