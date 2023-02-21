@@ -15,6 +15,7 @@ import ShinhanPopular from "../views/ShinhanPopular.vue";
 import CheckMyAccount from "../views/CheckMyAccount.vue";
 import SendMoney from "../views/SendMoney.vue";
 import RewardEvent from "../views/RewardEvent.vue";
+import BuyStockPage from "../views/BuyStockPage.vue";
 const routes = [
   {
     path: "/about",
@@ -104,6 +105,11 @@ const routes = [
     path: "/reward_event",
     name: "reward_event",
     component: RewardEvent,
+  },
+  {
+    path: "/buy_stock",
+    name: "buy_stock",
+    component: BuyStockPage,
   },
 ];
 
