@@ -14,6 +14,7 @@ import MakeAccountView from "../views/MakeAccountView.vue";
 import ShinhanPopular from "../views/ShinhanPopular.vue";
 import CheckMyAccount from "../views/CheckMyAccount.vue";
 import SendMoney from "../views/SendMoney.vue";
+import RewardEvent from "../views/RewardEvent.vue";
 const routes = [
   {
     path: "/about",
@@ -98,6 +99,11 @@ const routes = [
     path: "/send_money",
     name: "send_money",
     component: SendMoney,
+  },
+  {
+    path: "/reward_event",
+    name: "reward_event",
+    component: RewardEvent,
   },
 ];
 
