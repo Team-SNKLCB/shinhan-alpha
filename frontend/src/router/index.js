@@ -11,6 +11,7 @@ import TakeRewardView from "../views/TakeRewardView.vue";
 import SelectLoginTypeView from "../views/SelectLoginTypeView.vue";
 import LoginView from "../views/LoginView.vue";
 import MakeAccountView from "../views/MakeAccountView.vue";
+import MenuSettingView from "../views/MenuSettingView.vue";
 const routes = [
     {
         path: "/about",
@@ -80,11 +81,16 @@ const routes = [
         name: "make_account",
         component: MakeAccountView,
     },
+    {
+        path: "/menu_setting",
+        name: "menu_setting",
+        component: MenuSettingView,
+    },
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+    history: createWebHistory(),
+    routes,
 });
 
 export default router;
