@@ -8,7 +8,7 @@
             <img id="tier-image" :src="tier[0].tier_image" />
             <div id="tier-descript">
                 <p>나의 티어는?</p>
-                <p class="my-tier">{{ tier[0].tier }}</p>
+                <p class="my-tier">{{ userDetail.tier }}</p>
             </div>
             <circle-progress size="302" style="position: absolute; left: 10px; top: 32px" :percent="40" fill-color="#354ef2" border-width="20" />
         </div>
@@ -78,6 +78,14 @@ export default {
     components: {
         PhoneHeader,
         CircleProgress,
+    },
+    computed: {
+        userDetail() {
+            return this.$store.state.userDetail;
+        },
+    },
+    created() {
+        this.$store.dispatch("GET_USER_DETAIL");
     },
 };
 </script>
