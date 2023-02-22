@@ -1,6 +1,6 @@
 from rest_framework import generics, status, mixins
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserAppsSerializer, UserRewardSerializer, UserMissionSerializer, UserPointSerializer
+from .serializers import UserSerializer, UserAppsSerializer, UserRewardSerializer, UserMissionSerializer, UserPointSerializer, UserDetailSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.response import Response
@@ -11,9 +11,7 @@ from reward.models import Reward
 from mission.models import Mission
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Sum
-
-# Create your views here.
-
+import json
 
 class UserLoginView(APIView):
     serializer_class = UserSerializer
@@ -50,7 +48,6 @@ class UserListView(
         return self.list(request, args, kwargs)
 
     def post(self, request, *args, **kwargs):
-        # is_active = 1
         res = self.create(request, args, kwargs)
         username = res.data.get('username')
         user = User.objects.get(username=username)
@@ -70,19 +67,36 @@ class UserDetailView(
     generics.GenericAPIView,
 ):
 
-    serializer_class = UserSerializer
-
+    serializer_class = UserDetailSerializer
+    permission_classes = [IsAuthenticated]
+    
     def get_queryset(self):
         return User.objects.all().order_by('id')
 
     def get(self, request, *args, **kwargs):
-        return self.retrieve(request, args, kwargs)
+        user = request.user
+        serialized_user_data = self.serializer_class(user)
+        response = Response({
+                "user": serialized_user_data.data,
+                }, status=status.HTTP_200_OK)
+        return response
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, args, kwargs)
 
     def put(self, request, *args, **kwargs):
-        return self.partial_update(request, args, kwargs)
+        user = request.user
+
+        if request.data.get('tier'):
+            tier = request.data.get('tier')
+            user.tier = tier
+
+        if request.data.get('e_active'):
+            e_active = request.data.get('e_active')
+            user.e_active = e_active
+        
+        user.save()
+        return Response(status=status.HTTP_200_OK)
 
 class UserAppsView(
     mixins.ListModelMixin, 
@@ -103,7 +117,13 @@ class UserAppsView(
         return self.list(request, args, kwargs)
     
     def put(self, request, *args, **kwargs):
-        return self.partial_update(request, args, kwargs)
+        id = request.data.get('id')
+        flag = request.data.get('flag')
+        user_apps = UserApps.objects.get(id=id, user=self.request.user)
+
+        user_apps.flag = flag
+        user_apps.save()
+        return Response(status=status.HTTP_200_OK)
     
 class UserRewardView(
     mixins.ListModelMixin, 
@@ -124,7 +144,13 @@ class UserRewardView(
         return self.list(request, args, kwargs)
     
     def put(self, request, *args, **kwargs):
-        return self.partial_update(request, args, kwargs)
+        id = request.data.get('id')
+        flag = request.data.get('flag')
+        user_reward = UserReward.objects.get(id=id, user=self.request.user)
+
+        user_reward.flag = flag
+        user_reward.save()
+        return Response(status=status.HTTP_200_OK)
     
 class UserMissionView(
     mixins.ListModelMixin, 
@@ -138,7 +164,6 @@ class UserMissionView(
         user_misson = UserMission.objects
         user_misson = user_misson.filter(user=self.request.user) \
             .select_related('mission', 'user')
-        # print(user_misson)
         return user_misson.order_by('id')
 
     def get(self, request, *args, **kwargs):
@@ -147,15 +172,12 @@ class UserMissionView(
     def put(self, request, *args, **kwargs):
         id = request.data.get('id')
         flag = request.data.get('flag')
-        # print(id, flag)
-        # print(request.user)
-        print(UserMission.flag)
-        # user_misson = UserMission.objects.get(id=id, user=self.request.user)
-        # print(user_misson.id, user_misson.flag)
-        # user_misson.flag = flag
-        return self.partial_update(request, args, kwargs)
-    
+        user_misson = UserMission.objects.get(id=id, user=self.request.user)
 
+        user_misson.flag = flag
+        user_misson.save()
+
+        return Response(status=status.HTTP_200_OK)
 
 class UserPointView(
     mixins.CreateModelMixin, 

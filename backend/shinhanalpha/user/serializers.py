@@ -16,6 +16,16 @@ class UserSerializer(serializers.ModelSerializer):
                 "write_only": True,
             },
         }
+class UserDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = '__all__'
+        extra_kwargs = {
+            "password": {
+                "write_only": True,
+            },
+        }
 
 class UserAppsSerializer(serializers.ModelSerializer):
     app_name = serializers.SerializerMethodField()

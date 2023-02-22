@@ -92,7 +92,9 @@
           style="width: 100%"
         ></div>
       </div>
-      <img class="bronze_star" src="../assets/bronze_star.png" />
+      <router-link to="/reward_event">
+        <img class="bronze_star" src="../assets/bronze_star.png"
+      /></router-link>
       <img class="silver_star" src="../assets/silver_star.png" />
       <img class="gold_star" src="../assets/gold_star.png" />
       <img class="platinum_star" src="../assets/platinum_star.png" />
@@ -186,7 +188,7 @@ export default {
       user_click: true,
       take_click: false,
       index: ["a", "b", "c"],
-      user_tier: 2,
+      user_tier: 1,
       rewards: [
         {
           reward_title: "브론즈 달성",

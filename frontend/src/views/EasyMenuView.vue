@@ -1,50 +1,56 @@
 <template>
-    <phone-header></phone-header>
-    <div class="easy-menu-header">
-        <span v-if="isLogin === null" style="font-size: 14px; color: white">만나서 반가워요!</span>
-        <span v-else style="font-size: 14px; color: white">{{ userDetail.name }}님</span>
-        <div class="edit-box">
-            <img class="icon" src="../assets/top/edit-icon.png" />
-            <img class="icon" src="../assets/top/bell-icon.png" />
-            <router-link to="/menu_setting"><img class="icon" src="../assets/top/setting-icon.png" /></router-link>
-        </div>
-    </div>
-    <div v-if="isLogin" class="my-asset">
-        <p style="font-size: 16px; font-weight: 500; margin-bottom: 5px">총 자산</p>
-        <p style="font-size: 24px; font-weight: 600">10,587원</p>
-        <p style="color: red; font-size: 12px">+500원 (2.00%)</p>
-    </div>
-    <div id="my-apps">
-        <div class="groups">
-            <div class="group">
-                <Container group-name="1" :get-child-payload="getChildPayload1" @drop="onDrop('items1', $event)">
-                    <Draggable v-for="item in items1" :key="item.id">
-                        <div class="drag-item">
-                            {{ item.name }}
-                        </div>
-                    </Draggable>
-                </Container>
-            </div>
-            <div class="group">
-                <Container group-name="1" :get-child-payload="getChildPayload2" @drop="onDrop('items2', $event)">
-                    <Draggable v-for="item in items2" :key="item.id">
-                        <div class="drag-item">
-                            {{ item.name }}
-                        </div>
-                    </Draggable>
-                </Container>
-            </div>
-            <div class="group">
-                <Container group-name="1" :get-child-payload="getChildPayload3" @drop="onDrop('items3', $event)">
-                    <Draggable v-for="item in items3" :key="item.id">
-                        <div class="drag-item">
-                            {{ item.name }}
-                        </div>
-                    </Draggable>
-                </Container>
+    <div>
+        <phone-header></phone-header>
+        <<<<<<< HEAD
+        <div class="easy-menu-header">
+            <span v-if="isLogin === null" style="font-size: 14px; color: white">만나서 반가워요!</span>
+            <span v-else style="font-size: 14px; color: white">{{ userDetail.name }}님</span>
+            <div class="edit-box">
+                <img class="icon" src="../assets/top/edit-icon.png" />
+                <img class="icon" src="../assets/top/bell-icon.png" />
+                <router-link to="/menu_setting"><img class="icon" src="../assets/top/setting-icon.png" /></router-link>
             </div>
         </div>
+        <div v-if="isLogin" class="my-asset">
+            <p style="font-size: 16px; font-weight: 500; margin-bottom: 5px">총 자산</p>
+            <p style="font-size: 24px; font-weight: 600">10,587원</p>
+            <p style="color: red; font-size: 12px">+500원 (2.00%)</p>
+        </div>
+        <div id="my-apps">
+            <div class="groups">
+                <div class="group">
+                    <Container group-name="1" :get-child-payload="getChildPayload1" @drop="onDrop('items1', $event)">
+                        <Draggable v-for="item in items1" :key="item.id">
+                            <div class="drag-item">
+                                {{ item.name }}
+                            </div>
+                        </Draggable>
+                    </Container>
+                </div>
+                <div class="group">
+                    <Container group-name="1" :get-child-payload="getChildPayload2" @drop="onDrop('items2', $event)">
+                        <Draggable v-for="item in items2" :key="item.id">
+                            <div class="drag-item">
+                                {{ item.name }}
+                            </div>
+                        </Draggable>
+                    </Container>
+                </div>
+                <div class="group">
+                    <Container group-name="1" :get-child-payload="getChildPayload3" @drop="onDrop('items3', $event)">
+                        <Draggable v-for="item in items3" :key="item.id">
+                            <div class="drag-item">
+                                {{ item.name }}
+                            </div>
+                        </Draggable>
+                    </Container>
+                </div>
+            </div>
+        </div>
+        =======
+        <div class="easy-menu-header"></div>
     </div>
+    >>>>>>> 7d910c22b5a6e26d8b72163e811739a6dd72f9bb
 </template>
 
 <script>
