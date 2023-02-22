@@ -18,6 +18,7 @@ import CheckMyAccount from "../views/CheckMyAccount.vue";
 import SendMoney from "../views/SendMoney.vue";
 import RewardEvent from "../views/RewardEvent.vue";
 import BuyStockPage from "../views/BuyStockPage.vue";
+import MenuView from "../views/MenuView.vue";
 const routes = [
     {
         path: "/",
@@ -40,9 +41,9 @@ const routes = [
         component: ModeTutorialView,
     },
     {
-        path: "/easy_menu",
-        name: "easy_menu",
-        component: EasyMenuView,
+        path: "/menu",
+        name: "menu",
+        component: MenuView,
     },
     {
         path: "/tier_main",
@@ -94,7 +95,6 @@ const routes = [
         name: "alpha_lab",
         component: AlphaLabView,
     },
-  
 ];
 
 const router = createRouter({

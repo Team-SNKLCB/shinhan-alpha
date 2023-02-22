@@ -1,7 +1,6 @@
 <template>
     <div>
         <phone-header></phone-header>
-        <<<<<<< HEAD
         <div class="easy-menu-header">
             <span v-if="isLogin === null" style="font-size: 14px; color: white">만나서 반가워요!</span>
             <span v-else style="font-size: 14px; color: white">{{ userDetail.name }}님</span>
@@ -47,10 +46,7 @@
                 </div>
             </div>
         </div>
-        =======
-        <div class="easy-menu-header"></div>
     </div>
-    >>>>>>> 7d910c22b5a6e26d8b72163e811739a6dd72f9bb
 </template>
 
 <script>

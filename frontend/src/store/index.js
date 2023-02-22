@@ -5,6 +5,7 @@ export default createStore({
     state: {
         missionList: [],
         userDetail: {},
+        e_activate: false,
     },
     getters: {},
     mutations: {
