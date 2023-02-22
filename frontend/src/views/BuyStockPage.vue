@@ -6,7 +6,7 @@
       <div class="modal_page">
         <br />
         <p style="font-weight: bold; position: absolute; left: 15px">
-          <span style="color: red">현금매수</span>주문확인
+          <span style="color: red">현금매수</span> 주문확인
         </p>
         <br />
         <br />
@@ -54,7 +54,7 @@
         </div>
 
         <p style="font-weight: bold">
-          위 내용으로
+          &nbsp;위 내용으로
           <span style="color: red; font-size: 20px">매수주문</span>을
           하시겠습니까?
         </p>
@@ -79,7 +79,7 @@
     <div v-if="buy_click === 2" class="overlay_modal_sec">
       <div class="modal_page">
         <br />
-        <p style="font-weight: bold; position: absolute; left: 92px">
+        <p style="font-weight: bold; position: absolute; left: 92px; top: 40px">
           <span style="color: red; font-size: 35px">매수 성공</span>
         </p>
         <br />
