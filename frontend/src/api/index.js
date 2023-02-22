@@ -13,7 +13,18 @@ function getUserMission() {
 }
 
 function getUserDetail() {
-    return axios.get(`${config.baseurl}/api/user/8`);
+    return axios.get(`${config.baseurl}/api/user/detail`, {
+        headers: {
+            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+        },
+    });
 }
 
-export { getUserMission, getUserDetail };
+function changeUserMode() {
+    return axios.post(`${config.baseurl}/api/user/detail`, {
+        headers: {
+            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+        },
+    });
+}
+export { getUserMission, getUserDetail, changeUserMode };

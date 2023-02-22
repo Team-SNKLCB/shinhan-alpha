@@ -86,36 +86,16 @@
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
 export default {
-  data() {
-    return {
-      // missions: [
-      //   {
-      //     mission_title: "1주일 연속 로그인하기",
-      //     mission_info:
-      //       "주식의 기본은 꾸준함 ! 1주일 연속 신한알파에 로그인해보세요.",
-      //     mission_point: 500,
-      //     mission_flag: 3,
-      //   },
-      //   {
-      //     mission_title: "국내주식 1주 구매하기",
-      //     mission_info:
-      //       "‘국내주식-신한인기종목’에서 인기종목 확인하고 ‘주식매매-종목검색’에서 종목 검색한 뒤 주식을 1주이상 구매해보세요 !",
-      //     mission_point: 500,
-      //     mission_flag: 2,
-      //   },
-      //   {
-      //     mission_title: "공모주 신청하기",
-      //     mission_info:
-      //       "새로 주식 시장에 들어오는 주식을 확인해요! ‘뱅킹/공모주-권리/공모주’에서 원하는 공모주를 선택하고 신청해보세요!",
-      //     mission_point: 300,
-      //     mission_flag: 1,
-      //   },
-      // ],
-    };
-  },
-  methods: {
-    changeStatus(index) {
-      missions[index].mission_flag = 3;
+    data() {
+        return {};
+    },
+    methods: {
+        changeStatus(index) {
+            missions[index].mission_flag = 3;
+        },
+    },
+    components: {
+        PhoneHeader,
     },
   },
   components: {

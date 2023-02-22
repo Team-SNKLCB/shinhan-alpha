@@ -72,10 +72,15 @@ export default {
           title: "로그인",
           info: "로그인 시간, 동시접속 등 로그인 관련한 설정을 변경할 수 있습니다.",
         },
+
         {
           img: require("../assets/setting-4.png"),
           title: "계좌",
           info: "대표계좌를 설정하고 계좌의 순서를 변경할 수 있습니다.",
+
+        goBack() {
+            this.$router.push("/menu");
+
         },
         {
           img: require("../assets/setting-5.png"),

@@ -4,8 +4,8 @@
     <div class="top-bar">
         <div class="search-div">
             <input style="font-size: 12px; padding-left: 5px" class="search" placeholder="메뉴·종목 검색" />
-            <i class="xi-bell-o icon"></i>
-            <router-link to="/menu_setting"><i class="xi-cog icon"></i></router-link>
+            <img style="width: 24px; margin-right: 10px; margin-left: 10px" src="../assets/top/bell-icon.png" />
+            <router-link to="/menu_setting"><img style="width: 24px" src="../assets/top/setting-icon.png" /></router-link>
         </div>
         <div style="padding-bottom: 20px" class="big-menu-div">
             <div class="top-click">매매</div>
@@ -134,7 +134,7 @@ export default {
 
 .top-bar {
     padding: 10px 0;
-    height: 70px;
+    height: 80px;
     background-color: #3f81d7;
     display: flex;
     flex-direction: column;
@@ -144,11 +144,12 @@ export default {
     display: flex;
     color: #88b0eb;
     justify-content: space-between;
+    margin-top: 3px;
 }
 
 .search {
-    width: 200px;
-    height: 25px;
+    width: 210px;
+    height: 30px;
     border: none;
     background: white;
     border-radius: 5px;

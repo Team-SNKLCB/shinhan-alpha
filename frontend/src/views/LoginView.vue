@@ -104,20 +104,20 @@ export default {
     changeToggle() {
       this.save_toggle = !this.save_toggle;
     },
-
-    login() {
-      axios
-        .post("http://127.0.0.1:8000/api/user/signin", {
-          username: this.id,
-          password: this.password,
-        })
-        .then((res) => {
-          sessionStorage.setItem("accessToken", res.data.access_token);
-          this.$router.push("/easy_menu");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        login() {
+            axios
+                .post("http://127.0.0.1:8000/api/user/signin", {
+                    username: this.id,
+                    password: this.password,
+                })
+                .then((res) => {
+                    sessionStorage.setItem("accessToken", res.data.access_token);
+                    this.$router.push("/menu");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
     },
   },
 };

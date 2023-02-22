@@ -126,6 +126,83 @@ const routes = [
     name: "show_els",
     component: ELSview,
   },
+import MenuView from "../views/MenuView.vue";
+const routes = [
+    {
+        path: "/",
+        name: "splash",
+        component: SplashView,
+    },
+    {
+        path: "/mode_select",
+        name: "mode_select",
+        component: ModeSelectView,
+    },
+    {
+        path: "/ordinary_menu",
+        name: "ordinary_menu",
+        component: OrdinaryMenuView,
+    },
+    {
+        path: "/mode_tutorial",
+        name: "mode_tutorial",
+        component: ModeTutorialView,
+    },
+    {
+        path: "/menu",
+        name: "menu",
+        component: MenuView,
+    },
+    {
+        path: "/tier_main",
+        name: "tier_main",
+        component: TierMainView,
+    },
+    {
+        path: "/mission",
+        name: "mission",
+        component: MissionView,
+    },
+    {
+        path: "/invite",
+        name: "invite",
+        component: InviteFriendView,
+    },
+    {
+        path: "/take_reward",
+        name: "take_reward",
+        component: TakeRewardView,
+    },
+    {
+        path: "/select_login",
+        name: "select_login",
+        component: SelectLoginTypeView,
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: LoginView,
+    },
+    {
+        path: "/make_account",
+        name: "make_account",
+        component: MakeAccountView,
+    },
+    {
+        path: "/menu_setting",
+        name: "menu_setting",
+        component: MenuSettingView,
+    },
+    {
+        path: "/shinhan_popular",
+        name: "shinhan_popular",
+        component: ShinhanPopular,
+    },
+    {
+        path: "/alpha_lab",
+        name: "alpha_lab",
+        component: AlphaLabView,
+    },
 ];
 
 const router = createRouter({
