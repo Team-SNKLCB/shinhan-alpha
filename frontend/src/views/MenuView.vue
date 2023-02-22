@@ -1,6 +1,6 @@
 <template>
-    <easy-menu-view-vue v-if="e_activate === true"></easy-menu-view-vue>
-    <ordinary-menu-view-vue v-if="e_activate === false"></ordinary-menu-view-vue>
+    <easy-menu-view-vue v-if="e_active === true"></easy-menu-view-vue>
+    <ordinary-menu-view-vue v-if="e_active === false"></ordinary-menu-view-vue>
 </template>
 
 <script>
@@ -12,13 +12,9 @@ export default {
         OrdinaryMenuViewVue,
     },
     computed: {
-        e_activate() {
-            return this.$store.state.e_activate;
+        e_active() {
+            return this.$store.state.e_active;
         },
-    },
-
-    created() {
-        this.$store.dispatch("CHANGE_MODE");
     },
 };
 </script>
