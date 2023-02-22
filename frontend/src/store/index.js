@@ -5,6 +5,7 @@ export default createStore({
     state: {
         missionList: [],
         userDetail: {},
+        e_activate: false,
     },
     getters: {},
     mutations: {
@@ -13,6 +14,9 @@ export default createStore({
         },
         GET_USER_DETAIL_MUT(state, userDetail) {
             state.userDetail = userDetail;
+        },
+        CHANGE_MENU_MODE(state, e_activate) {
+            state.e_activate = !state.e_activate;
         },
     },
     actions: {
@@ -32,6 +36,10 @@ export default createStore({
                     return res.data;
                 })
                 .catch((err) => console.log(err));
+        },
+
+        CHANGE_MODE(context) {
+            context.commit("CHANGE_MENU_MODE");
         },
     },
     modules: {},
