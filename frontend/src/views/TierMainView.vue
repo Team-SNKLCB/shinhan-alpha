@@ -7,33 +7,29 @@
       /></router-link>
     </div>
     <div class="tier-head">
-      <div style="position: relative">
-        <img id="tier-image" :src="tier[0].tier_image" />
-        <div id="tier-descript">
-          <p>나의 티어는?</p>
-          <p class="my-tier">{{ tier[0].tier }}</p>
+
+        <div style="position: relative">
+            <img id="tier-image" :src="tier[0].tier_image" />
+            <div id="tier-descript">
+                <p>나의 티어는?</p>
+                <p class="my-tier">{{ userDetail.tier }}</p>
+            </div>
+            <circle-progress size="302" style="position: absolute; left: 10px; top: 32px" :percent="40" fill-color="#354ef2" border-width="20" />
         </div>
-        <circle-progress
-          size="302"
-          style="position: absolute; left: 10px; top: 32px"
-          :percent="40"
-          fill-color="#354ef2"
-          border-width="20"
-        />
-      </div>
-      <div id="link-btn-div">
-        <router-link to="/take_reward"
-          ><div class="link-btn">리워드 <br />수령하기</div></router-link
-        >
-        <router-link to="/mission" class="link-btn"
-          ><div>미션 확인</div></router-link
-        >
-        <router-link to="/mission"
-          ><div class="link-btn">내 자산 <br />확인하기</div></router-link
-        >
-        <router-link to="/invite"
-          ><div class="link-btn">친구 <br />추천하기</div></router-link
-        >
+        <div id="link-btn-div">
+            <router-link to="/take_reward"
+                ><div class="link-btn">리워드 <br />수령하기</div></router-link
+            >
+            <router-link to="/mission" class="link-btn"><div>미션 확인</div></router-link>
+            <router-link to="/mission"
+                ><div class="link-btn">내 자산 <br />확인하기</div></router-link
+            >
+            <router-link to="/invite"
+                ><div class="link-btn">친구 <br />추천하기</div></router-link
+            >
+
+        </div>
+
       </div>
     </div>
     <div style="height: 10px; background-color: #f0f0f0"></div>
@@ -56,41 +52,51 @@ import PhoneHeader from "@/components/PhoneHeader.vue";
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
 export default {
-  data() {
-    return {
-      tier: [
-        {
-          tier: "브론즈",
-          tier_reward: "국내 주식 랜덤 1주",
-          tier_image: require("../assets/tier/tier_bronze_img.png"),
+
+    data() {
+        return {
+            tier: [
+                {
+                    tier: "브론즈",
+                    tier_reward: "국내 주식 랜덤 1주",
+                    tier_image: require("../assets/tier/tier_bronze_img.png"),
+                },
+                {
+                    tier: "실버",
+                    tier_reward: "수수료 우대",
+                    tier_image: require("../assets/tier/tier_silver_img.png"),
+                },
+                {
+                    tier: "골드",
+                    tier_reward: "수수료 우대",
+                    tier_image: require("../assets/tier/tier_gold_img.png"),
+                },
+                {
+                    tier: "플래티넘",
+                    tier_reward: "신한플러스 3개월 할인",
+                    tier_image: require("../assets/tier/tier_platinum_img.png"),
+                },
+                {
+                    tier: "다이아",
+                    tier_reward: "해외 주식 랜덤 1주",
+                    tier_image: require("../assets/tier/tier_dia_img.png"),
+                },
+            ],
+        };
+    },
+    components: {
+        PhoneHeader,
+        CircleProgress,
+    },
+    computed: {
+        userDetail() {
+            return this.$store.state.userDetail;
         },
-        {
-          tier: "실버",
-          tier_reward: "수수료 우대",
-          tier_image: require("../assets/tier/tier_silver_img.png"),
-        },
-        {
-          tier: "골드",
-          tier_reward: "수수료 우대",
-          tier_image: require("../assets/tier/tier_gold_img.png"),
-        },
-        {
-          tier: "플래티넘",
-          tier_reward: "신한플러스 3개월 할인",
-          tier_image: require("../assets/tier/tier_platinum_img.png"),
-        },
-        {
-          tier: "다이아",
-          tier_reward: "해외 주식 랜덤 1주",
-          tier_image: require("../assets/tier/tier_dia_img.png"),
-        },
-      ],
-    };
-  },
-  components: {
-    PhoneHeader,
-    CircleProgress,
-  },
+    },
+    created() {
+        this.$store.dispatch("GET_USER_DETAIL");
+    },
+
 };
 </script>
 

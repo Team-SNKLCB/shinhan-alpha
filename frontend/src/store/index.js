@@ -31,7 +31,7 @@ export default createStore({
         async GET_USER_DETAIL(context) {
             return getUserDetail()
                 .then((res) => {
-                    context.commit("GET_USER_DETAIL_MUT", res.data);
+                    context.commit("GET_USER_DETAIL_MUT", res.data.user);
                     return res.data;
                 })
                 .catch((err) => console.log(err));

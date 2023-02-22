@@ -16,37 +16,24 @@
             <p style="color: red; font-size: 12px">+500원 (2.00%)</p>
         </div>
         <div id="my-apps">
-            <div class="groups">
-                <div class="group">
-                    <Container group-name="1" :get-child-payload="getChildPayload1" @drop="onDrop('items1', $event)">
-                        <Draggable v-for="item in items1" :key="item.id">
-                            <div class="drag-item">
-                                {{ item.name }}
-                            </div>
-                        </Draggable>
-                    </Container>
-                </div>
-                <div class="group">
-                    <Container group-name="1" :get-child-payload="getChildPayload2" @drop="onDrop('items2', $event)">
-                        <Draggable v-for="item in items2" :key="item.id">
-                            <div class="drag-item">
-                                {{ item.name }}
-                            </div>
-                        </Draggable>
-                    </Container>
-                </div>
-                <div class="group">
-                    <Container group-name="1" :get-child-payload="getChildPayload3" @drop="onDrop('items3', $event)">
-                        <Draggable v-for="item in items3" :key="item.id">
-                            <div class="drag-item">
-                                {{ item.name }}
-                            </div>
-                        </Draggable>
-                    </Container>
-                </div>
-            </div>
+            <my-grid-layout
+                :col-num="12"
+                :row-height="30"
+                :is-draggable="true"
+                :is-resizable="true"
+                :is-mirrored="false"
+                :vertical-compact="true"
+                :margin="[10, 10]"
+                :use-css-transforms="true"
+                :layout="layout"
+                :is-bounded="true"
+            >
+                <my-grid-item v-for="item in layout" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" :key="item.i">
+                    <div style="font-size: 10px">{{ item.name }}</div>
+                </my-grid-item>
+            </my-grid-layout>
         </div>
-        <div>
+        <div v-if="isLogin === null">
             <router-link to="/login"><div class="login-btn">로그인</div></router-link>
             <router-link to="/make_account"><div class="make-account-btn">계좌만들기</div></router-link>
         </div>
@@ -55,11 +42,21 @@
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
-import { Container, Draggable } from "vue-dndrop";
-import { applyDrag } from "../utils/helper.js";
+import { GridLayout, GridItem } from "vue3-grid-layout-next";
 export default {
     data() {
         return {
+            layout: [
+                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체" },
+                { x: 2, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인" },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터" },
+                { x: 0, y: 0, w: 4, h: 2.5, i: "3", name: "하하" },
+                { x: 2, y: 0, w: 4, h: 2.5, i: "4", name: "히히" },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "5", name: "호호" },
+            ],
+            draggable: true,
+            resizable: true,
+            index: 0,
             items1: [
                 {
                     id: 1,
@@ -91,8 +88,8 @@ export default {
     },
     components: {
         PhoneHeader,
-        Container,
-        Draggable,
+        myGridLayout: GridLayout,
+        myGridItem: GridItem,
     },
     computed: {
         userDetail() {
@@ -102,26 +99,7 @@ export default {
             return sessionStorage.getItem("accessToken");
         },
     },
-    methods: {
-        onDrop(collection, dropResult) {
-            this[collection] = applyDrag(this[collection], dropResult);
-        },
-
-        getChildPayload1(index) {
-            return this.items1[index];
-        },
-
-        getChildPayload2(index) {
-            return this.items2[index];
-        },
-
-        getChildPayload3(index) {
-            return this.items3[index];
-        },
-        shouldAcceptDrop(sourceContainerOptions, payload) {
-            return true;
-        },
-    },
+    methods: {},
 
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
@@ -209,5 +187,55 @@ export default {
     line-height: 50px;
     margin-top: 20px;
     font-weight: 700;
+}
+
+.vue-grid-layout {
+    background: #ffffff;
+}
+.vue-grid-item:not(.vue-grid-placeholder) {
+    background: #ffffff;
+    border: 1px solid grey;
+}
+.vue-grid-item .resizing {
+    opacity: 0.9;
+}
+.vue-grid-item .static {
+    background: rgb(255, 255, 255);
+}
+.vue-grid-item .text {
+    font-size: 10px;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+}
+.vue-grid-item .no-drag {
+    height: 100%;
+    width: 100%;
+}
+.vue-grid-item .minMax {
+    font-size: 12px;
+}
+.vue-grid-item .add {
+    cursor: pointer;
+}
+.vue-draggable-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    left: 0;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><circle cx='5' cy='5' r='5' fill='#999999'/></svg>") no-repeat;
+    background-position: bottom right;
+    padding: 0 8px 8px 0;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 </style>
