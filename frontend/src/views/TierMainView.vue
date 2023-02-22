@@ -1,9 +1,13 @@
 <template>
+  <div>
     <phone-header></phone-header>
     <div class="x-btn">
-        <router-link to="easy_menu"><font-awesome-icon icon="fa-solid fa-x" /></router-link>
+      <router-link to="easy_menu"
+        ><font-awesome-icon icon="fa-solid fa-x"
+      /></router-link>
     </div>
     <div class="tier-head">
+
         <div style="position: relative">
             <img id="tier-image" :src="tier[0].tier_image" />
             <div id="tier-descript">
@@ -23,20 +27,24 @@
             <router-link to="/invite"
                 ><div class="link-btn">친구 <br />추천하기</div></router-link
             >
+
         </div>
+
+      </div>
     </div>
     <div style="height: 10px; background-color: #f0f0f0"></div>
     <div id="tier-reward-descript">
-        <div class="reward-descript-div" v-for="item in tier" :key="item.tier">
-            <img class="tier-reward-img" :src="item.tier_image" />
-            <div class="tier-reward-descript">
-                <strong
-                    ><p style="font-size: 11px">{{ item.tier }}</p></strong
-                >
-                <p style="font-size: 8px; color: #cccccc">{{ item.tier_reward }}</p>
-            </div>
+      <div class="reward-descript-div" v-for="item in tier" :key="item.tier">
+        <img class="tier-reward-img" :src="item.tier_image" />
+        <div class="tier-reward-descript">
+          <strong
+            ><p style="font-size: 11px">{{ item.tier }}</p></strong
+          >
+          <p style="font-size: 8px; color: #cccccc">{{ item.tier_reward }}</p>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -44,6 +52,7 @@ import PhoneHeader from "@/components/PhoneHeader.vue";
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
 export default {
+
     data() {
         return {
             tier: [
@@ -87,81 +96,82 @@ export default {
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
     },
+
 };
 </script>
 
 <style scoped>
 .x-btn {
-    margin-top: 40px;
-    height: 30px;
-    line-height: 30px;
-    text-align: left;
-    margin-left: 15px;
-    font-size: 20px;
+  margin-top: 40px;
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  margin-left: 15px;
+  font-size: 20px;
 }
 
 .tier-head {
-    width: 100%;
-    height: 500px;
+  width: 100%;
+  height: 500px;
 }
 
 #tier-image {
-    margin-top: 65px;
+  margin-top: 65px;
 }
 
 #tier-descript {
-    font-family: "Noto Sans KR";
-    margin-top: 40px;
-    font-size: 14px;
+  font-family: "Noto Sans KR";
+  margin-top: 40px;
+  font-size: 14px;
 }
 
 #link-btn-div {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 41px;
-    margin-top: 60px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 41px;
+  margin-top: 60px;
 }
 
 .link-btn {
-    color: white;
-    font-family: "Noto Sans KR";
-    font-weight: 400;
-    width: 45px;
-    height: 45px;
-    border-radius: 5px;
-    background-color: #354ef2;
-    font-size: 9px;
-    padding-top: 6px;
-    box-sizing: border-box;
+  color: white;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  width: 45px;
+  height: 45px;
+  border-radius: 5px;
+  background-color: #354ef2;
+  font-size: 9px;
+  padding-top: 6px;
+  box-sizing: border-box;
 }
 
 .link-btn:nth-child(2) {
-    padding: 0;
-    line-height: 45px;
+  padding: 0;
+  line-height: 45px;
 }
 
 .my-tier {
-    font-size: 26px;
-    font-weight: 600;
+  font-size: 26px;
+  font-weight: 600;
 }
 
 .tier-reward-img {
-    width: 65px;
+  width: 65px;
 }
 
 .reward-descript-div {
-    padding: 10px;
-    display: flex;
-    align-items: center;
+  padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .tier-reward-descript {
-    margin-left: 15px;
-    text-align: left;
-    line-height: 25px;
+  margin-left: 15px;
+  text-align: left;
+  line-height: 25px;
 }
 a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 </style>
