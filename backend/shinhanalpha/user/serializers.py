@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 from .models import User, UserApps, UserReward, UserMission
+from mission.models import Mission
 
 class UserSerializer(serializers.ModelSerializer):
     def validate_password(self, value):
@@ -71,7 +72,6 @@ class UserRewardSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserMissionSerializer(serializers.ModelSerializer):
-    # 미션 상태 변경 코드 필요
     mission_name = serializers.SerializerMethodField()
     mission_point  = serializers.SerializerMethodField()
     mission_description = serializers.SerializerMethodField()
@@ -96,18 +96,16 @@ class UserMissionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserPointSerializer(serializers.ModelSerializer):
-    # mission_point  = serializers.SerializerMethodField()
-    # mission_description = serializers.SerializerMethodField()
-    # def get_mission_point(self, obj):
-    #     return obj.mission.point
-    # def get_mission_description(self, obj):
-    #     return obj.mission.description
-
-    # 포인트 합 구현 필요
-    # total_point = serializers.SerializerMethodField()
-    # def get_total_point(self, obj):
-    #     return obj.mission_set.all().count()
-
+    mission_name = serializers.SerializerMethodField()
+    mission_point  = serializers.SerializerMethodField()
+    mission_description = serializers.SerializerMethodField()
+    def get_mission_name(self, obj):
+        return obj.mission.name
+    def get_mission_point(self, obj):
+        return obj.mission.point
+    def get_mission_description(self, obj):
+        return obj.mission.description
+    
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault(),
         required=False

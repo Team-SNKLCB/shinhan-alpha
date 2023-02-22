@@ -64,6 +64,7 @@ class UserDetailView(
     mixins.RetrieveModelMixin,
     mixins.DestroyModelMixin,
     mixins.UpdateModelMixin,
+    mixins.CreateModelMixin, 
     generics.GenericAPIView,
 ):
 
@@ -97,6 +98,14 @@ class UserDetailView(
         
         user.save()
         return Response(status=status.HTTP_200_OK)
+    
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        e_active = user.e_active
+        user.e_active = not e_active
+        user.save()
+        return Response(status=status.HTTP_200_OK)
+
 
 class UserAppsView(
     mixins.ListModelMixin, 
@@ -108,7 +117,6 @@ class UserAppsView(
 
     def get_queryset(self):
         userapps = UserApps.objects
-        print(self.request.user)
         userapps = userapps.filter(user=self.request.user) \
             .select_related('app', 'user')
         return userapps.order_by('id')
@@ -135,7 +143,6 @@ class UserRewardView(
 
     def get_queryset(self):
         user_reward = UserReward.objects
-        print(self.request.user)
         user_reward = user_reward.filter(user=self.request.user) \
             .select_related('reward', 'user')
         return user_reward.order_by('id')
@@ -190,8 +197,7 @@ class UserPointView(
 
     def get_queryset(self):
         user_misson = UserMission.objects
-        print(self.request.user)
-        user_misson = user_misson.filter(user=self.request.user) \
+        user_misson = user_misson.filter(user=self.request.user, flag=1) \
             .select_related('mission', 'user')
         return user_misson.order_by('id')
 
@@ -204,23 +210,15 @@ class UserPointView(
     def post(self, request, *args, **kwargs):
         return self.create(request, args, kwargs)
 
-# outer join을 못해서 현재로서는 구현 안됨
 class UserTotalPointView(
-    mixins.ListModelMixin, 
-    generics.GenericAPIView,
+    APIView,
 ):
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserPointSerializer
-
-    def get_queryset(self):
-        sum = UserMission.objects.filter(user=self.request.user) \
-            .select_related('mission') \
-            # .annotate(total_point=Sum('mission_point'))
-        print(sum)
-        # sum = sum.aggregate(Sum('mission_point'))
-            # .aggregate(sum['mission_point__sum'])
-        # print(sum)
-        return sum.order_by('id')
-
+    
     def get(self, request, *args, **kwargs):
-        return self.list(request, args, kwargs)
+        queryset = UserMission.objects.filter(user=request.user, flag=1)
+        sum = queryset.aggregate(total_point=Sum('mission__point')).get('total_point')
+        
+        response = Response({
+                "total_point": sum,
+                }, status=status.HTTP_200_OK)
+        return response
