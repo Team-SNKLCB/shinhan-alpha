@@ -1,8 +1,8 @@
 <template>
     <div class="modeSelectBox">
         <p class="title">어떤 모드를 선택하시겠어요?</p>
-        <router-link to="/about"><img class="btn-mode" src="../assets/button-julin.png" /></router-link>
-        <router-link to="/about"><img class="btn-mode" src="../assets/button-ordinary.png" /></router-link>
+        <router-link to="/easy_menu"><img class="btn-mode" src="../assets/button-julin.png" /></router-link>
+        <router-link to="/ordinary_menu"><img class="btn-mode" src="../assets/button-ordinary.png" /></router-link>
         <p class="sub-title">신한투자증권</p>
     </div>
 </template>
@@ -13,7 +13,7 @@ export default {};
 
 <style>
 .modeSelectBox {
-    height: 100%;
+    height: 666px;
     background-color: #373deb;
     padding-top: 131px;
     box-sizing: border-box;
