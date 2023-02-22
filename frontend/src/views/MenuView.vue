@@ -16,6 +16,10 @@ export default {
             return this.$store.state.e_activate;
         },
     },
+
+    created() {
+        this.$store.dispatch("CHANGE_MODE");
+    },
 };
 </script>
 
