@@ -122,7 +122,7 @@
         </div>
         <div class="word_box" style="color: #979797">
           <div>
-            <span style="color: #cccccc">주문수량 </span>
+            <span style="color: #cccccc">주문금액 </span>
           </div>
           <div>
             <span style="color: black">{{ stock_sum }}원</span>

@@ -140,7 +140,7 @@
           <p class="point_time">2023.02.16 16:30:12</p>
         </div>
         <div>
-          <p>+30P</p>
+          <p style="font-weight: bold; color: #4276f2">+30P</p>
         </div>
       </div>
     </div>
@@ -169,7 +169,7 @@
           v-else-if="rewards.reward_flag === 1"
           @click="(rewards.reward_flag = 2), (take_click = true)"
         >
-          <p class="take_text_done">수령하기</p>
+          <span class="take_text_done">수령하기</span>
         </div>
         <div v-else-if="rewards.reward_flag === 2">
           <p class="take_text_clear">수령완료</p>
@@ -253,7 +253,7 @@ li {
 
 .point_check {
   display: flex;
-  border-bottom: 1px solid #979797;
+
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
@@ -277,8 +277,11 @@ li {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  height: 30px;
-  width: 60px;
+  height: 22px;
+  width: 69px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .take_text_done {
@@ -288,8 +291,11 @@ li {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  height: 30px;
-  width: 60px;
+  height: 22px;
+  width: 69px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .take_text_yet {
@@ -299,8 +305,11 @@ li {
   font-size: 12px;
   font-weight: bold;
   color: white;
-  height: 30px;
-  width: 60px;
+  height: 22px;
+  width: 69px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tier_reward {
@@ -361,50 +370,70 @@ li {
   position: absolute;
   left: 71px;
   top: 170px;
+  width: 35px;
+  height: 33px;
 }
 .silver_star {
   position: absolute;
   left: 117.5px;
   top: 167px;
+  width: 36px;
+  height: 33px;
 }
 .gold_star {
   position: absolute;
   left: 167px;
   top: 167px;
+  width: 34px;
+  height: 37px;
 }
 .platinum_star {
   position: absolute;
   left: 211px;
   top: 165px;
+  width: 35px;
+  height: 36px;
 }
 .dia_star {
   position: absolute;
   left: 256px;
   top: 165px;
+  width: 36px;
+  height: 37px;
 }
 .silver_bear {
   position: absolute;
   left: 105px;
   top: 90px;
+  width: 61.55px;
+  height: 53px;
 }
 .bronze_bear {
   position: absolute;
   left: 60px;
   top: 90px;
+  width: 61.55px;
+  height: 53px;
 }
 .gold_bear {
   position: absolute;
   left: 153px;
   top: 90px;
+  width: 61.55px;
+  height: 53px;
 }
 .platinum_bear {
   position: absolute;
   left: 198px;
   top: 90px;
+  width: 61.55px;
+  height: 53px;
 }
 .dia_bear {
   position: absolute;
   left: 245px;
   top: 90px;
+  width: 61.55px;
+  height: 53px;
 }
 </style>
