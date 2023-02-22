@@ -13,8 +13,8 @@
                 <p>주린이 모드</p>
                 <p style="font-size: 10px; color: #8b8b8c">주식 입문자에게 투자가 조금 더 쉽게 다가올 수 있도록 할 수 있는 주린이 모드가 활성화 됩니다.</p>
             </div>
-            <img v-if="e_activate === true" @click="changeModeToggle" style="width: 70px; height: 35px; margin-left: 20px" src="../assets/off-btn.png" />
-            <img v-else-if="e_activate === false" @click="changeModeToggle" style="width: 70px; height: 35px; margin-left: 20px" src="../assets/on-btn.png" />
+            <img v-if="e_active === false" @click="changeModeToggle" style="width: 70px; height: 35px; margin-left: 20px" src="../assets/off-btn.png" />
+            <img v-else-if="e_active === true" @click="changeModeToggle" style="width: 70px; height: 35px; margin-left: 20px" src="../assets/on-btn.png" />
         </div>
         <div class="alpha-menu">
             <div style="width: 195px; display: flex; flex-direction: column; text-align: left; margin-left: 25px; font-size: 14px">
@@ -63,28 +63,24 @@ export default {
             this.save_toggle[index] = !this.save_toggle[index];
         },
         changeModeToggle() {
-            this.$store.state.e_activate = !this.$store.state.e_activate;
+            this.$store.state.e_active = !this.$store.state.e_active;
         },
         checkMode() {
             if (this.save_toggle[0] === true) {
-                if (this.$store.state.e_activate === false) {
-                    this.$store.state.e_activate = true;
+                if (this.$store.state.e_active === false) {
+                    this.$store.state.e_active = true;
                     this.$router.push("/menu");
                 } else {
-                    this.$store.state.e_activate = false;
+                    this.$store.state.e_active = false;
                     this.$router.push("/menu");
                 }
             }
         },
     },
     computed: {
-        e_activate() {
-            return this.$store.state.e_activate;
+        e_active() {
+            return this.$store.state.e_active;
         },
-    },
-
-    created() {
-        this.$store.dispatch("CHANGE_MODE");
     },
 };
 </script>

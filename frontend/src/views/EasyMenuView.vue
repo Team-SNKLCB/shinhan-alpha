@@ -46,6 +46,10 @@
                 </div>
             </div>
         </div>
+        <div>
+            <router-link to="/login"><div class="login-btn">로그인</div></router-link>
+            <router-link to="/make_account"><div class="make-account-btn">계좌만들기</div></router-link>
+        </div>
     </div>
 </template>
 
@@ -181,5 +185,29 @@ export default {
     width: 105px;
     height: 105px;
     border: 1px solid black;
+}
+
+.login-btn {
+    background-color: #354ef2;
+    color: white;
+    border-radius: 25px;
+    width: 283px;
+    height: 50px;
+    margin: 0 auto;
+    line-height: 50px;
+    margin-top: 60px;
+    font-weight: 700;
+}
+
+.make-account-btn {
+    background-color: #a8b4ff;
+    color: #354ef2;
+    border-radius: 25px;
+    width: 283px;
+    height: 50px;
+    margin: 0 auto;
+    line-height: 50px;
+    margin-top: 20px;
+    font-weight: 700;
 }
 </style>

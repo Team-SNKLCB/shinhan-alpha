@@ -1,8 +1,8 @@
 <template>
     <div class="modeSelectBox">
         <p class="title">어떤 모드를 선택하시겠어요?</p>
-        <img @click="click_easy" class="btn-mode" src="../assets/button-julin.png" />
-        <img @click="click_easy" class="btn-mode" src="../assets/button-ordinary.png" />
+        <img @click="click_julin" class="btn-mode" src="../assets/button-julin.png" />
+        <img @click="click_ordinary" class="btn-mode" src="../assets/button-ordinary.png" />
         <p class="sub-title">신한투자증권</p>
     </div>
 </template>
@@ -10,13 +10,14 @@
 <script>
 export default {
     methods: {
-        click_easy() {
-            this.$store.state.e_activate = !this.$store.state.e_activate;
+        click_julin() {
+            this.$store.state.e_active = true;
             this.$router.push("/menu");
         },
-    },
-    created() {
-        this.$store.dispatch("CHANGE_MODE");
+        click_ordinary() {
+            this.$store.state.e_active = false;
+            this.$router.push("/menu");
+        },
     },
 };
 </script>

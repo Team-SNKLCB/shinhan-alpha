@@ -55,7 +55,7 @@ export default {
                 })
                 .then((res) => {
                     sessionStorage.setItem("accessToken", res.data.access_token);
-                    this.$router.push("/easy_menu");
+                    this.$router.push("/menu");
                 })
                 .catch((err) => {
                     console.log(err);
