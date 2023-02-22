@@ -5,7 +5,8 @@
             <span v-if="isLogin === null" style="font-size: 14px; color: white">만나서 반가워요!</span>
             <span v-else style="font-size: 14px; color: white">{{ userDetail.name }}님</span>
             <div class="edit-box">
-                <img class="icon" src="../assets/top/edit-icon.png" />
+                <img @click="toggleEdit" v-if="changeMode === false" class="icon" src="../assets/top/edit-icon.png" />
+                <img style="background: blue" v-else-if="changeMode === true" @click="toggleEdit" class="icon" src="../assets/top/edit-icon.png" />
                 <img class="icon" src="../assets/top/bell-icon.png" />
                 <router-link to="/menu_setting"><img class="icon" src="../assets/top/setting-icon.png" /></router-link>
             </div>
@@ -15,23 +16,47 @@
             <p style="font-size: 24px; font-weight: 600">10,587원</p>
             <p style="color: red; font-size: 12px">+500원 (2.00%)</p>
         </div>
-        <div id="my-apps">
+        <div id="my-apps" v-if="changeMode === true">
             <my-grid-layout
                 :col-num="12"
                 :row-height="30"
                 :is-draggable="true"
                 :is-resizable="true"
                 :is-mirrored="false"
+                :responsive="responsive"
                 :vertical-compact="true"
                 :margin="[10, 10]"
                 :use-css-transforms="true"
                 :layout="layout"
                 :is-bounded="true"
+                :breakpoints="false"
+                :cols="false"
             >
-                <my-grid-item v-for="item in layout" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i" :key="item.i">
+                <my-grid-item
+                    style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
+                    v-for="item in layout"
+                    :x="item.x"
+                    :y="item.y"
+                    :w="item.w"
+                    :h="item.h"
+                    :i="item.i"
+                    :key="item.i"
+                >
+                    <span class="remove" @click="removeItem(item.i)">x</span>
+                    <div style="margin-top: 10px; width: 60px; height: 60px; background-color: aqua"></div>
                     <div style="font-size: 10px">{{ item.name }}</div>
                 </my-grid-item>
             </my-grid-layout>
+        </div>
+        <div class="my-grid-item" v-else-if="isLogin === false">
+            <div class="app" v-for="item in defaultLayout" :key="item">
+                {{ item.name }}
+            </div>
+        </div>
+        <div v-else-if="isLogin && changeMode === false" class="my-grid-item my-apps login">
+            <div class="app" v-for="item in layout" :key="item">
+                {{ item.name }}
+            </div>
         </div>
         <div v-if="isLogin === null">
             <router-link to="/login"><div class="login-btn">로그인</div></router-link>
@@ -46,13 +71,19 @@ import { GridLayout, GridItem } from "vue3-grid-layout-next";
 export default {
     data() {
         return {
+            changeMode: false,
+            defaultLayout: [
+                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체" },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인" },
+                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터" },
+            ],
             layout: [
                 { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체" },
-                { x: 2, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인" },
-                { x: 4, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터" },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인" },
+                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터" },
                 { x: 0, y: 0, w: 4, h: 2.5, i: "3", name: "하하" },
-                { x: 2, y: 0, w: 4, h: 2.5, i: "4", name: "히히" },
-                { x: 4, y: 0, w: 4, h: 2.5, i: "5", name: "호호" },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "4", name: "히히" },
+                { x: 8, y: 0, w: 4, h: 2.5, i: "5", name: "호호" },
             ],
             draggable: true,
             resizable: true,
@@ -99,7 +130,32 @@ export default {
             return sessionStorage.getItem("accessToken");
         },
     },
-    methods: {},
+    methods: {
+        toggleEdit() {
+            if (this.isLogin === null) {
+                alert("로그인이 필요합니다.");
+                this.$router.push("/login");
+                return;
+            }
+            this.changeMode = !this.changeMode;
+        },
+        addItem: function () {
+            // Add a new item. It must have a unique key!
+            this.layout.push({
+                x: (this.layout.length * 2) % (this.colNum || 12),
+                y: this.layout.length + (this.colNum || 12), // puts it at the bottom
+                w: 2,
+                h: 2,
+                i: this.index,
+            });
+            // Increment the counter to ensure key is always unique.
+            this.index++;
+        },
+        removeItem: function (val) {
+            const index = this.layout.map((item) => item.i).indexOf(val);
+            this.layout.splice(index, 1);
+        },
+    },
 
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
@@ -108,6 +164,32 @@ export default {
 </script>
 
 <style>
+.my-grid-item {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove {
+    cursor: pointer;
+    position: absolute;
+    right: 2px;
+}
+.login {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+.app {
+    font-size: 10px;
+    width: 93px;
+    height: 90px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
 .easy-menu-header {
     width: 291px;
     height: 46px;
