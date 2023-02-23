@@ -55,9 +55,14 @@ class UserListView(
         for app in Apps.objects.all():
             UserApps(user=user, app=app).save()
         for reward in Reward.objects.all():
-            UserReward(user=user, reward=reward).save()
+            if reward.tier_name == '브론즈3':
+                UserReward(user=user, reward=reward, flag=1).save()
+            else:
+                UserReward(user=user, reward=reward).save()
         for mission in Mission.objects.all():
-            if mission.name == '7일 연속 로그인' or mission.name == '국내주식 1주 매매하기' or mission.name == '친구 추천 1회':
+            if mission.name == '로그인':
+                UserMission(user=user, mission=mission, flag=3).save()
+            elif mission.name == '7일 연속 로그인' or mission.name == '국내주식 1주 매매하기' or mission.name == '친구 추천 1회':
                 UserMission(user=user, mission=mission, flag=1).save()
             else:
                 UserMission(user=user, mission=mission).save()
@@ -200,7 +205,7 @@ class UserPointView(
 
     def get_queryset(self):
         user_misson = UserMission.objects
-        user_misson = user_misson.filter(user=self.request.user, flag=1) \
+        user_misson = user_misson.filter(user=self.request.user, flag=3) \
             .select_related('mission', 'user')
         return user_misson.order_by('id')
 

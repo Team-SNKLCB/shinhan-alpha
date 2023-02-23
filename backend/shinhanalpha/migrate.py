@@ -138,20 +138,15 @@ rewards = [
     },
 ]
 missions = [
-    # {
-    #     'm_name':'로그인',
-    #     'point':'1',
-    #     'm_description':'주식의 기본은 꾸준함!\n매일매일 신한알파에 로그인해보세요.'
-    # },
+    {
+        'm_name':'로그인',
+        'point':'1',
+        'm_description':'주식의 기본은 꾸준함!\n매일매일 신한알파에 로그인해보세요.'
+    },
     {
         'm_name':'7일 연속 로그인',
         'point':'3',
         'm_description':'주식의 기본은 꾸준함!\n1주일 연속 신한알파에 로그인해보세요.'
-    },
-    {
-        'm_name':'1개월 연속 로그인',
-        'point':'30',
-        'm_description':'30'
     },
     {
         'm_name':'국내주식 1주 매매하기',
@@ -166,7 +161,7 @@ missions = [
     {
         'm_name':'친구 추천 1회',
         'point':'50',
-        'm_description':'50'
+        'm_description':'친구에게 내 티어를 자랑해보세요 \n친구와 나 모두 포인트를 받을 수 있어요!'
     },
     {
         'm_name':'친구 추천 3명',
