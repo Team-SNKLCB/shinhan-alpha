@@ -57,7 +57,10 @@ class UserListView(
         for reward in Reward.objects.all():
             UserReward(user=user, reward=reward).save()
         for mission in Mission.objects.all():
-            UserMission(user=user, mission=mission).save()
+            if mission.name == '7일 연속 로그인' or mission.name == '국내주식 1주 매매하기' or mission.name == '친구 추천 1회':
+                UserMission(user=user, mission=mission, flag=1).save()
+            else:
+                UserMission(user=user, mission=mission).save()
         return res
     
 class UserDetailView(
@@ -215,7 +218,7 @@ class UserTotalPointView(
 ):
     
     def get(self, request, *args, **kwargs):
-        queryset = UserMission.objects.filter(user=request.user, flag=1)
+        queryset = UserMission.objects.filter(user=request.user, flag=3)
         sum = queryset.aggregate(total_point=Sum('mission__point')).get('total_point')
         
         response = Response({
