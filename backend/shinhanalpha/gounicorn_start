@@ -1,0 +1,5 @@
+export DJANGO_SETTINGS_MODULE=shinhanapp.settings
+export PYTHONPATH=/usr/src/app:$PYTHONPATH
+export DJANGO_WSGI_MODULE=shinhanapp.wsgi
+
+exec gunicorn shinhanapp.wsgi:application --name APP --workers 2 --user root --bind 0.0.0.0:8000
