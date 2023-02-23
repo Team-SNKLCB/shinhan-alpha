@@ -10,8 +10,8 @@
                     <span style="color: white">{{ userDetail.name }}</span> 님은
                 </p>
                 <p>
-                    <span style="color: gold">골드</span>
-                    <span style="color: white">가는중 !</span>
+                    <span :style="{ color: tier[Number(userDetail.tier) + 1].color }">{{ tier[Number(userDetail.tier) + 1].tier }}</span>
+                    <span style="color: white"> 가는중 !</span>
                 </p>
             </div>
             <div class="info-div">
@@ -26,16 +26,18 @@
             </div>
         </div>
         <div id="mission-div">
-            <div class="mission-list" v-for="mission in missions" :key="mission.mission_name">
-                <p class="mission-title">{{ mission.mission_name }}</p>
-                <p class="mission-info">{{ mission.mission_description }}</p>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px">
-                    <div class="mission-point">{{ mission.mission_point }}P</div>
-                    <img v-if="mission.flag === 1" style="width: 44px; height: 44px" src="../assets/mission-ing.png" />
-                    <img v-else-if="mission.flag === 2" style="width: 44px; height: 44px" @click="changeStatus(mission.id)" src="../assets/mission-end.png" />
-                    <div style="position: relative" v-else-if="mission.flag === 3">
-                        <img style="width: 44px; height: 44px" src="../assets/mission-completed.png" />
-                        <img style="width: 80px; height: 60px; position: absolute; left: -15px; bottom: 0px" src="../assets/complete_stamp.png" />
+            <div v-for="mission in missions" :key="mission.mission_name">
+                <div class="mission-list" v-if="mission.flag !== 0">
+                    <p class="mission-title">{{ mission.mission_name }}</p>
+                    <p class="mission-info">{{ mission.mission_description }}</p>
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px">
+                        <div class="mission-point">{{ mission.mission_point }}P</div>
+                        <img v-if="mission.flag === 1" style="width: 44px; height: 44px" src="../assets/mission-ing.png" />
+                        <img v-else-if="mission.flag === 2" style="width: 44px; height: 44px" @click="changeStatus(mission.id)" src="../assets/mission-end.png" />
+                        <div style="position: relative" v-else-if="mission.flag === 3">
+                            <img style="width: 44px; height: 44px" src="../assets/mission-completed.png" />
+                            <img style="width: 80px; height: 60px; position: absolute; left: -15px; bottom: 0px" src="../assets/complete_stamp.png" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,6 +65,9 @@ export default {
         },
         userDetail() {
             return this.$store.state.userDetail;
+        },
+        tier() {
+            return this.$store.state.checkTier;
         },
     },
     created() {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-    baseurl: "http://127.0.0.1:8000",
+    baseurl: "http://34.64.212.142",
 };
 
 function getUserMission() {
@@ -28,4 +28,12 @@ function changeUserMode() {
     });
 }
 
-export { getUserMission, getUserDetail, changeUserMode };
+function getPoints() {
+    return axios.get(`${config.baseurl}/api/user/signin`, {
+        headers: {
+            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+        },
+    });
+}
+
+export { getUserMission, getUserDetail, changeUserMode, getPoints };

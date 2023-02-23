@@ -9,9 +9,9 @@
                 <img id="tier-image" :src="tier[0].tier_image" />
                 <div id="tier-descript">
                     <p>나의 티어는?</p>
-                    <p class="my-tier">{{ userDetail.tier }}</p>
+                    <span class="my-tier" :style="{ color: tiers[userDetail.tier].color }">{{ tiers[userDetail.tier].tier }}</span>
                 </div>
-                <circle-progress size="302" style="position: absolute; left: 10px; top: 32px" :percent="40" fill-color="#354ef2" border-width="20" />
+                <circle-progress size="302" style="position: absolute; left: 10px; top: 32px" :percent="points" fill-color="#354ef2" border-width="20" />
             </div>
             <div id="link-btn-div">
                 <router-link to="/take_reward"
@@ -85,9 +85,16 @@ export default {
         userDetail() {
             return this.$store.state.userDetail;
         },
+        tiers() {
+            return this.$store.state.checkTier;
+        },
+        points() {
+            return this.$store.state.total_point;
+        },
     },
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
+        this.$store.dispatch("GET_USER_TOTAL_POINT");
     },
 };
 </script>
