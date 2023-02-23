@@ -33,7 +33,16 @@
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px">
                         <div class="mission-point">{{ mission.mission_point }}P</div>
                         <img v-if="mission.flag === 1" style="width: 44px; height: 44px" src="../assets/mission-ing.png" />
-                        <img v-else-if="mission.flag === 2" style="width: 44px; height: 44px" @click="changeStatus(mission.id)" src="../assets/mission-end.png" />
+                        <img
+                            v-else-if="mission.flag === 2 && isClicked === false"
+                            style="width: 44px; height: 44px"
+                            @click="changeStatus(mission.id)"
+                            src="../assets/mission-end.png"
+                        />
+                        <div style="position: relative" v-else-if="isClicked === true">
+                            <img style="width: 44px; height: 44px" src="../assets/mission-completed.png" />
+                            <img style="width: 80px; height: 60px; position: absolute; left: -15px; bottom: 0px" src="../assets/complete_stamp.png" />
+                        </div>
                         <div style="position: relative" v-else-if="mission.flag === 3">
                             <img style="width: 44px; height: 44px" src="../assets/mission-completed.png" />
                             <img style="width: 80px; height: 60px; position: absolute; left: -15px; bottom: 0px" src="../assets/complete_stamp.png" />
@@ -50,10 +59,13 @@ import PhoneHeader from "@/components/PhoneHeader.vue";
 import axios from "axios";
 export default {
     data() {
-        return {};
+        return {
+            isClicked: false,
+        };
     },
     methods: {
         changeStatus(index) {
+            this.isClicked = true;
             axios
                 .put(
                     "http://34.64.212.142/api/user/mission",
