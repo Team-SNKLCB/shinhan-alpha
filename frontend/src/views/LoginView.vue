@@ -50,7 +50,7 @@ export default {
         },
         login() {
             axios
-                .post("http://34.64.212.142/api/user/signin", {
+                .post("http://localhost:8000/api/user/signin", {
                     username: this.id,
                     password: this.password,
                 })

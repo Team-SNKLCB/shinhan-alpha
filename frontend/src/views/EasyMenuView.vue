@@ -183,6 +183,8 @@ export default {
                 this.$router.push("/check_account");
             } else if (index === 5) {
                 this.$router.push("/buy_stock");
+            } else if (index === 3) {
+                this.$router.push("/show_mmf");
             }
         },
     },

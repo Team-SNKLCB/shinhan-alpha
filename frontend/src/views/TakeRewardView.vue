@@ -71,20 +71,20 @@
             <div class="box_text"><p>리워드 수령하기</p></div>
         </div>
         <template v-if="user_click === false">
-            <div v-for="(mission, i) in missionList" :key="i" class="point_check">
+            <div v-for="(reward, i) in rewardList" :key="i" class="point_check">
                 <div class="tier_reward">
                     <p style="font-weight: bold; font-size: 16px">
-                        {{ mission.reward_reward_name }}
+                        {{ reward.reward_reward_name }}
                     </p>
                     <br />
                     <p style="font-weight: bold; font-size: 11px; color: #979797">
-                        {{ mission.reward_tier_name }}
+                        {{ reward.reward_tier_name }}
                     </p>
                 </div>
-                <div v-if="mission.flag === 0">
+                <div v-if="reward.flag === 0">
                     <p class="take_text_yet">미달성</p>
                 </div>
-                <div v-else-if="mission.flag === 1" @click="getReward(mission.id)">
+                <div v-else-if="reward.flag === 1" @click="getReward(reward.id)">
                     <span class="take_text_done">수령하기</span>
                 </div>
                 <div v-else-if="rewards.reward_flag === 2">
@@ -141,7 +141,7 @@ export default {
         },
         getReward(id) {
             axios.put(
-                "http://34.64.212.142/api/user/mission",
+                "http://localhost:8000/api/user/mission",
                 {
                     id: id,
                     flag: 2,
@@ -155,8 +155,8 @@ export default {
         },
     },
     computed: {
-        missionList() {
-            return this.$store.dispatch("GET_MISSION_LIST");
+        rewardList() {
+            return this.$store.state.userRewardList;
         },
         userDetail() {
             return this.$store.state.userDetail;
@@ -164,6 +164,7 @@ export default {
     },
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
+        this.$store.dispatch("GET_MISSION_LIST");
     },
 };
 </script>

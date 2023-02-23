@@ -55,7 +55,7 @@ export default {
 
         makeAccount() {
             axios
-                .post("http://34.64.212.142/api/user", {
+                .post("http://localhost:8000/api/user", {
                     password: this.password,
                     name: this.name,
                     ename: this.english_name,
@@ -64,7 +64,7 @@ export default {
                     tier: 1,
                     username: this.id,
                 })
-                .then((res) => console.log(res))
+                .then((res) => this.$router.push("/login"))
                 .catch((err) => console.log(err));
         },
     },

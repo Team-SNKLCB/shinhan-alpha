@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const config = {
-    baseurl: "http://34.64.212.142",
+    baseurl: "http://localhost:8000",
 };
 
 function getUserMission() {
@@ -36,7 +36,7 @@ function getPoints() {
     });
 }
 
-function getMissionList() {
+function getUserReward() {
     return axios.get(`${config.baseurl}/api/user/reward`, {
         headers: {
             Authorization: "JWT " + sessionStorage.getItem("accessToken"),
@@ -44,4 +44,4 @@ function getMissionList() {
     });
 }
 
-export { getUserMission, getUserDetail, changeUserMode, getPoints, getMissionList };
+export { getUserMission, getUserDetail, changeUserMode, getPoints, getUserReward };

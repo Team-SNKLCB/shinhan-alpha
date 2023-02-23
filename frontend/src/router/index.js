@@ -22,6 +22,7 @@ import MMFview from "../views/MMFview.vue";
 import ELSview from "../views/ELSview.vue";
 import MenuView from "../views/MenuView.vue";
 import Test from "../views/test.vue";
+import MMFBuyView from "../views/MMFBuyView.vue";
 const routes = [
     {
         path: "/buy_stock",
@@ -132,6 +133,11 @@ const routes = [
         path: "/menu",
         name: "menu",
         component: MenuView,
+    },
+    {
+        path: "/MMFbuy",
+        name: "MMFbuy",
+        component: MMFBuyView,
     },
 ];
 

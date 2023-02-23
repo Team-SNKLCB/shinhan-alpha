@@ -10,7 +10,7 @@
                     <span style="color: white">{{ userDetail.name }}</span> 님은
                 </p>
                 <p>
-                    <span :style="{ color: tier[Number(userDetail.tier) + 1].color }">{{ tier[Number(userDetail.tier) + 1].tier }}</span>
+                    <span :style="{ color: tier ? tier[Number(userDetail.tier)].color : white }">{{ tier[Number(userDetail.tier)].tier }}</span>
                     <span style="color: white"> 가는중 !</span>
                 </p>
             </div>
@@ -47,13 +47,25 @@
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
+import axios from "axios";
 export default {
     data() {
         return {};
     },
     methods: {
         changeStatus(index) {
-            missions[index].mission_flag = 3;
+            axios.put(
+                "http://localhost:8000/api/user/mission",
+                {
+                    id: index,
+                    flag: 2,
+                },
+                {
+                    headers: {
+                        Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                    },
+                }
+            );
         },
     },
     components: {
@@ -61,7 +73,7 @@ export default {
     },
     computed: {
         missions() {
-            return this.$store.state.missionList;
+            return this.$store.state.userMissionList;
         },
         userDetail() {
             return this.$store.state.userDetail;
@@ -70,8 +82,8 @@ export default {
             return this.$store.state.checkTier;
         },
     },
-    created() {
-        this.$store.dispatch("GET_MISSION_LIST");
+    beforeMount() {
+        this.$store.dispatch("GET_USER_MISSION");
         this.$store.dispatch("GET_USER_DETAIL");
     },
 };
