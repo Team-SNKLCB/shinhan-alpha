@@ -83,8 +83,11 @@
                 <div v-if="reward.flag === 0">
                     <p class="take_text_yet">미달성</p>
                 </div>
-                <div v-else-if="reward.flag === 1" @click="getReward(reward.id)">
+                <div v-else-if="reward.flag === 1 && reward_clicked === false" @click="getReward(reward.id)">
                     <span class="take_text_done">수령하기</span>
+                </div>
+                <div v-else-if="reward_clicked === true">
+                    <p class="take_text_clear">수령완료</p>
                 </div>
                 <div v-else-if="reward.flag === 2">
                     <p class="take_text_clear">수령완료</p>
@@ -105,6 +108,7 @@ export default {
             take_click: false,
             index: ["a", "b", "c"],
             user_tier: 0,
+            reward_clicked: false,
         };
     },
     methods: {
@@ -113,6 +117,7 @@ export default {
         },
         getReward(id) {
             this.take_click = true;
+            this.reward_clicked = true;
             axios
                 .put(
                     "http://34.64.212.142/api/user/reward",
@@ -142,7 +147,7 @@ export default {
     },
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
-        this.$store.dispatch("GET_MISSION_LIST");
+        this.$store.dispatch("GET_USER_MISSION");
         this.$store.dispatch("GET_USER_REWARD");
         this.$store.dispatch("GET_POINT_LOG");
     },
