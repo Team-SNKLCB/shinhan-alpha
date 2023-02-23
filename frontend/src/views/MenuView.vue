@@ -16,6 +16,9 @@ export default {
             return this.$store.state.e_active;
         },
     },
+    created() {
+        this.$store.dispatch("GET_USER_DETAIL");
+    },
 };
 </script>
 

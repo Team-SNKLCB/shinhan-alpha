@@ -12,12 +12,15 @@ export default {
     methods: {
         click_julin() {
             this.$store.state.e_active = true;
-            this.$router.push("/menu");
+            this.$router.push("/mode_tutorial");
         },
         click_ordinary() {
             this.$store.state.e_active = false;
             this.$router.push("/menu");
         },
+    },
+    created() {
+        sessionStorage.setItem("B3Flag", false);
     },
 };
 </script>

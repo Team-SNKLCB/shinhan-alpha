@@ -50,12 +50,13 @@ export default {
         },
         login() {
             axios
-                .post("http://127.0.0.1:8000/api/user/signin", {
+                .post("http://34.64.212.142/api/user/signin", {
                     username: this.id,
                     password: this.password,
                 })
                 .then((res) => {
                     sessionStorage.setItem("accessToken", res.data.access_token);
+                    this.$store.state.e_active = true;
                     this.$router.push("/menu");
                 })
                 .catch((err) => {

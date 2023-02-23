@@ -1,28 +1,26 @@
 <template>
-  <div>
-    <phone-header></phone-header>
-    <img class="mode-tutorial" src="../assets/tutorial.png" />
-    <router-link class="admit-btn" to="easy_menu"
-      ><img src="../assets/ok_bar.svg"
-    /></router-link>
-  </div>
+    <div>
+        <phone-header></phone-header>
+        <img class="mode-tutorial" src="../assets/tutorial.png" />
+        <router-link class="admit-btn" to="/menu"><img src="../assets/admit-btn.png" /></router-link>
+    </div>
 </template>
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
 export default {
-  components: { PhoneHeader },
+    components: { PhoneHeader },
 };
 </script>
 
 <style>
 .mode-tutorial {
-  width: 320px;
-  margin-top: 40px;
+    width: 320px;
+    margin-top: 40px;
 }
 
 .admit-btn {
-  position: relative;
-  bottom: 145px;
+    position: relative;
+    bottom: 145px;
 }
 </style>

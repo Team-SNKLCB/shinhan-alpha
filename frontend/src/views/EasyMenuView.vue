@@ -1,23 +1,47 @@
 <template>
     <div>
         <phone-header></phone-header>
+        <div v-if="modalStatus === true" class="overlay_modal">
+            <img
+                @click="
+                    () => {
+                        modalStatus = false;
+                    }
+                "
+                src="../assets/app-icon/add-alert.svg"
+            />
+        </div>
+        <!-- 최초 로그인 시 브3 승급, MMF 추천 모달 -->
+        <div v-if="bronze" class="overlay_modal">
+            <img
+                @click="
+                    () => {
+                        this.$store.state.total_apps[3].added = true;
+                        bronze = false;
+                    }
+                "
+                src="../assets/app-icon/add-menu-modal.svg"
+            />
+        </div>
         <div class="easy-menu-header">
             <span v-if="isLogin === null" style="font-size: 14px; color: white">만나서 반가워요!</span>
-            <span v-else style="font-size: 14px; color: white">{{ userDetail.name }}님</span>
+            <span v-else style="font-size: 14px; color: white"
+                ><img @click="moveToTierMain" style="width: 32px" :src="userDetail.tier ? tier[userDetail.tier].img : null" /> {{ userDetail.name }}님</span
+            >
             <div class="edit-box">
                 <img @click="toggleEdit" v-if="changeMode === false" class="icon" src="../assets/top/edit-icon.png" />
-                <img @click="toggleEdit" v-else-if="changeMode === true" class="icon" src="../assets/top/edit-fin-icon.png" />
+                <img @click="toggleEditFin" v-else-if="changeMode === true" class="icon" src="../assets/top/edit-fin-icon.png" />
                 <img class="icon" src="../assets/top/bell-icon.png" />
                 <router-link to="/menu_setting"><img class="icon" src="../assets/top/setting-icon.png" /></router-link>
             </div>
         </div>
         <div v-if="isLogin" class="my-asset">
             <p style="font-size: 16px; font-weight: 500; margin-bottom: 5px">총 자산</p>
-            <p style="font-size: 24px; font-weight: 600">10,587원</p>
-            <p style="color: red; font-size: 12px">+500원 (2.00%)</p>
+            <p style="font-size: 24px; font-weight: 600">0원</p>
+            <p style="color: red; font-size: 12px">+0원 (0.0%)</p>
         </div>
         <div style="display: flex; justify-content: space-around; margin-top: 30px" v-else>
-            <div class="app my-grid-item" v-for="item in defaultLayout" :key="item">
+            <div class="app my-grid-item" v-for="item in layout" :key="item">
                 <img :src="item.img" />
                 {{ item.name }}
             </div>
@@ -29,19 +53,15 @@
                 :is-draggable="changeMode ? true : false"
                 :is-resizable="false"
                 :is-mirrored="false"
-                :static="true"
                 :responsive="responsive"
                 :vertical-compact="true"
                 :margin="[10, 10]"
                 :use-css-transforms="true"
                 :layout="layout"
-                :is-bounded="true"
-                :breakpoints="false"
-                :cols="false"
             >
                 <my-grid-item
                     style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
-                    v-for="item in layout"
+                    v-for="item in totalApps"
                     :x="item.x"
                     :y="item.y"
                     :w="item.w"
@@ -49,10 +69,33 @@
                     :i="item.i"
                     :key="item.i"
                 >
-                    <img v-if="changeMode === true" @click="removeItem(item.i)" class="remove" style="width: 18px; height: 18px" src="../assets/top/minus-cirlce.png" />
-                    <img :src="item.img" />
-                    <div style="font-size: 10px">{{ item.name }}</div>
+                    <div v-if="item.added === true">
+                        <img v-if="changeMode === true" @click="removeItem(item.i)" class="remove" style="width: 18px; height: 18px" src="../assets/top/minus-cirlce.png" />
+                        <img :src="item.img" :style="{ opacity: imgOpacity }" />
+                        <div style="font-size: 10px">{{ item.name }}</div>
+                    </div>
+                    <div v-else-if="changeMode === true">
+                        <img @click="addItem(item.i)" class="remove" style="width: 18px; height: 18px" src="../assets/top/add-circle.svg" />
+                        <img :src="item.img" :style="{ opacity: addImgOpacity }" />
+                        <div style="font-size: 10px">{{ item.name }}</div>
+                    </div>
                 </my-grid-item>
+                <!-- <div v-if="changeMode === true">
+                    <my-grid-item
+                        style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
+                        v-for="item in totalApps"
+                        :x="item.x"
+                        :y="item.y"
+                        :w="item.w"
+                        :h="item.h"
+                        :i="item.i"
+                        :key="item.i"
+                    >
+                        <img v-if="changeMode === true" @click="addItem(Number(item.i))" class="remove" style="width: 18px; height: 18px" src="../assets/top/add-circle.svg" />
+                        <img :src="item.img" :style="{ opacity: addImgOpacity }" />
+                        <div style="font-size: 10px">{{ item.name }}</div>
+                    </my-grid-item>
+                </div> -->
             </my-grid-layout>
         </div>
 
@@ -69,6 +112,7 @@ import { GridLayout, GridItem } from "vue3-grid-layout-next";
 export default {
     data() {
         return {
+            modalStatus: false,
             changeMode: false,
             defaultLayout: [
                 { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체", img: require("../assets/app-icon/이체.svg"), static: true },
@@ -79,37 +123,17 @@ export default {
                 { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체", img: require("../assets/app-icon/이체.svg"), static: true },
                 { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인", img: require("../assets/app-icon/계좌확인.svg"), static: true },
                 { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터", img: require("../assets/app-icon/고객센터.svg"), static: true },
+                // { x: 0, y: 2.5, w: 4, h: 2.5, i: "3", name: "MMF", img: require("../assets/app-icon/MMF.svg"), static: true },
+                // { x: 4, y: 2.5, w: 4, h: 2.5, i: "4", name: "RP", img: require("../assets/app-icon/RP.svg"), static: true },
+                // { x: 8, y: 2.5, w: 4, h: 2.5, i: "5", name: "국내주식", img: require("../assets/app-icon/국내주식.svg"), static: true },
+                // { x: 0, y: 5, w: 4, h: 2.5, i: "6", name: "해외주식", img: require("../assets/app-icon/해외주식.svg"), static: true },
             ],
             draggable: true,
             resizable: true,
-            index: 0,
-            items1: [
-                {
-                    id: 1,
-                    name: "이체",
-                },
-                {
-                    id: 2,
-                    name: "내 계좌 확인",
-                },
-                {
-                    id: 3,
-                    name: "고객센터",
-                },
-            ],
-            items2: [
-                {
-                    id: 4,
-                    name: "이체",
-                },
-                { id: 5, name: "내 계좌 확인" },
-                { id: 6, name: "고객센터" },
-            ],
-            items3: [
-                { id: 7, name: "이체" },
-                { id: 8, name: "내 계좌 확인" },
-                { id: 9, name: "고객센터" },
-            ],
+            index: 3,
+            isB3TierUp: false,
+            isB2TierUp: false,
+            bronze: false,
         };
     },
     components: {
@@ -124,6 +148,18 @@ export default {
         isLogin() {
             return sessionStorage.getItem("accessToken");
         },
+        imgOpacity() {
+            return this.changeMode ? 0.5 : 1;
+        },
+        addImgOpacity() {
+            return this.changeMode ? 1 : 0.5;
+        },
+        totalApps() {
+            return this.$store.state.total_apps;
+        },
+        tier() {
+            return this.$store.state.checkTier;
+        },
     },
     methods: {
         toggleEdit() {
@@ -132,31 +168,49 @@ export default {
                 this.$router.push("/login");
                 return;
             }
+            if (this.modalStatus === false) {
+                this.modalStatus = true;
+            }
+            console.log(this.$store.state.total_apps);
             this.layout.forEach((item) => {
                 item.static = !item.static;
             });
             this.changeMode = !this.changeMode;
         },
-        addItem: function () {
-            // Add a new item. It must have a unique key!
-            this.layout.push({
-                x: (this.layout.length * 2) % (this.colNum || 12),
-                y: this.layout.length + (this.colNum || 12), // puts it at the bottom
-                w: 2,
-                h: 2,
-                i: this.index,
+        toggleEditFin() {
+            console.log(this.$store.state.total_apps);
+            this.layout.forEach((item) => {
+                item.static = !item.static;
             });
-            // Increment the counter to ensure key is always unique.
-            this.index++;
+            this.changeMode = !this.changeMode;
         },
-        removeItem: function (val) {
-            const index = this.layout.map((item) => item.i).indexOf(val);
-            this.layout.splice(index, 1);
+        addItem: function (index) {
+            this.$store.state.total_apps[index].added = true;
+        },
+        removeItem: function (index) {
+            this.$store.state.total_apps[index].added = false;
+        },
+        moveToTierMain() {
+            this.$router.push("/tier_main");
         },
     },
 
     created() {
-        this.$store.dispatch("GET_USER_DETAIL");
+        this.$store.dispatch("GET_USER_DETAIL").then((res) => {
+            if (sessionStorage.getItem("tier") != "undefined" && this.$store.state.userDetail.tier !== sessionStorage.getItem("tier")) {
+                this.isB2TierUp = true;
+            }
+        });
+    },
+    mounted() {
+        console.log(this.userDetail);
+        if (sessionStorage.getItem("accessToken")) {
+            console.log(sessionStorage.getItem("B3Flag"));
+            if (!sessionStorage.getItem("B3Flag") || sessionStorage.getItem("B3Flag") == "false") {
+                this.bronze = true;
+                sessionStorage.setItem("B3Flag", true);
+            }
+        }
     },
 };
 </script>
@@ -315,5 +369,18 @@ export default {
     background-origin: content-box;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+.overlay_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
 }
 </style>
