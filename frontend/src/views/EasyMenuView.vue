@@ -6,7 +6,7 @@
             <span v-else style="font-size: 14px; color: white">{{ userDetail.name }}님</span>
             <div class="edit-box">
                 <img @click="toggleEdit" v-if="changeMode === false" class="icon" src="../assets/top/edit-icon.png" />
-                <img style="background: blue" v-else-if="changeMode === true" @click="toggleEdit" class="icon" src="../assets/top/edit-icon.png" />
+                <img @click="toggleEdit" v-else-if="changeMode === true" class="icon" src="../assets/top/edit-fin-icon.png" />
                 <img class="icon" src="../assets/top/bell-icon.png" />
                 <router-link to="/menu_setting"><img class="icon" src="../assets/top/setting-icon.png" /></router-link>
             </div>
@@ -16,13 +16,20 @@
             <p style="font-size: 24px; font-weight: 600">10,587원</p>
             <p style="color: red; font-size: 12px">+500원 (2.00%)</p>
         </div>
-        <div id="my-apps" v-if="changeMode === true">
+        <div style="display: flex; justify-content: space-around; margin-top: 30px" v-else>
+            <div class="app my-grid-item" v-for="item in defaultLayout" :key="item">
+                <img :src="item.img" />
+                {{ item.name }}
+            </div>
+        </div>
+        <div id="my-apps" v-if="isLogin">
             <my-grid-layout
                 :col-num="12"
                 :row-height="30"
-                :is-draggable="true"
-                :is-resizable="true"
+                :is-draggable="changeMode ? true : false"
+                :is-resizable="false"
                 :is-mirrored="false"
+                :static="true"
                 :responsive="responsive"
                 :vertical-compact="true"
                 :margin="[10, 10]"
@@ -42,23 +49,14 @@
                     :i="item.i"
                     :key="item.i"
                 >
-                    <span class="remove" @click="removeItem(item.i)">x</span>
-                    <div style="margin-top: 10px; width: 60px; height: 60px; background-color: aqua"></div>
+                    <img v-if="changeMode === true" @click="removeItem(item.i)" class="remove" style="width: 18px; height: 18px" src="../assets/top/minus-cirlce.png" />
+                    <img :src="item.img" />
                     <div style="font-size: 10px">{{ item.name }}</div>
                 </my-grid-item>
             </my-grid-layout>
         </div>
-        <div class="my-grid-item" v-else-if="isLogin === false">
-            <div class="app" v-for="item in defaultLayout" :key="item">
-                {{ item.name }}
-            </div>
-        </div>
-        <div v-else-if="isLogin && changeMode === false" class="my-grid-item my-apps login">
-            <div class="app" v-for="item in layout" :key="item">
-                {{ item.name }}
-            </div>
-        </div>
-        <div v-if="isLogin === null">
+
+        <div style="position: absolute; bottom: 30px; left: 18.5px" v-if="isLogin === null">
             <router-link to="/login"><div class="login-btn">로그인</div></router-link>
             <router-link to="/make_account"><div class="make-account-btn">계좌만들기</div></router-link>
         </div>
@@ -73,17 +71,14 @@ export default {
         return {
             changeMode: false,
             defaultLayout: [
-                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체" },
-                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인" },
-                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터" },
+                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체", img: require("../assets/app-icon/이체.svg"), static: true },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인", img: require("../assets/app-icon/계좌확인.svg"), static: true },
+                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터", img: require("../assets/app-icon/고객센터.svg"), static: true },
             ],
             layout: [
-                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체" },
-                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인" },
-                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터" },
-                { x: 0, y: 0, w: 4, h: 2.5, i: "3", name: "하하" },
-                { x: 4, y: 0, w: 4, h: 2.5, i: "4", name: "히히" },
-                { x: 8, y: 0, w: 4, h: 2.5, i: "5", name: "호호" },
+                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체", img: require("../assets/app-icon/이체.svg"), static: true },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인", img: require("../assets/app-icon/계좌확인.svg"), static: true },
+                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터", img: require("../assets/app-icon/고객센터.svg"), static: true },
             ],
             draggable: true,
             resizable: true,
@@ -137,6 +132,9 @@ export default {
                 this.$router.push("/login");
                 return;
             }
+            this.layout.forEach((item) => {
+                item.static = !item.static;
+            });
             this.changeMode = !this.changeMode;
         },
         addItem: function () {
@@ -187,7 +185,6 @@ export default {
     font-size: 10px;
     width: 93px;
     height: 90px;
-    border: 1px solid black;
     margin-bottom: 10px;
 }
 .easy-menu-header {
@@ -276,7 +273,6 @@ export default {
 }
 .vue-grid-item:not(.vue-grid-placeholder) {
     background: #ffffff;
-    border: 1px solid grey;
 }
 .vue-grid-item .resizing {
     opacity: 0.9;
