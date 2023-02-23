@@ -36,4 +36,12 @@ function getPoints() {
     });
 }
 
-export { getUserMission, getUserDetail, changeUserMode, getPoints };
+function getMissionList() {
+    return axios.get(`${config.baseurl}/api/user/reward`, {
+        headers: {
+            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+        },
+    });
+}
+
+export { getUserMission, getUserDetail, changeUserMode, getPoints, getMissionList };

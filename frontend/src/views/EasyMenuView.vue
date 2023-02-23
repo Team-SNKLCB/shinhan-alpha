@@ -61,7 +61,7 @@
             >
                 <my-grid-item
                     style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
-                    v-for="item in layout"
+                    v-for="(item, index) in layout"
                     :x="item.x"
                     :y="item.y"
                     :w="item.w"
@@ -76,7 +76,7 @@
                         style="width: 18px; height: 18px"
                         src="../assets/top/minus-cirlce.png"
                     />
-                    <img v-if="item.added === true" :src="item.img" :style="{ opacity: imgOpacity }" />
+                    <img @click="movePage(index)" v-if="item.added === true" :src="item.img" :style="{ opacity: imgOpacity }" />
                     <div v-if="item.added === true" style="font-size: 10px">{{ item.name }}</div>
                     <img
                         v-if="item.added === false && changeMode === true"
@@ -175,6 +175,15 @@ export default {
         },
         moveToTierMain() {
             this.$router.push("/tier_main");
+        },
+        movePage(index) {
+            if (index === 0) {
+                this.$router.push("/send_money");
+            } else if (index === 1) {
+                this.$router.push("/check_account");
+            } else if (index === 5) {
+                this.$router.push("/buy_stock");
+            }
         },
     },
 

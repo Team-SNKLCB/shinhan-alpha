@@ -71,20 +71,20 @@
             <div class="box_text"><p>리워드 수령하기</p></div>
         </div>
         <template v-if="user_click === false">
-            <div v-for="(rewards, i) in rewards" :key="i" class="point_check">
+            <div v-for="(mission, i) in missionList" :key="i" class="point_check">
                 <div class="tier_reward">
                     <p style="font-weight: bold; font-size: 16px">
-                        {{ rewards.reward_title }}
+                        {{ mission.reward_reward_name }}
                     </p>
                     <br />
                     <p style="font-weight: bold; font-size: 11px; color: #979797">
-                        {{ rewards.reward_info }}
+                        {{ mission.reward_tier_name }}
                     </p>
                 </div>
-                <div v-if="rewards.reward_flag === 0">
+                <div v-if="mission.flag === 0">
                     <p class="take_text_yet">미달성</p>
                 </div>
-                <div v-else-if="rewards.reward_flag === 1" @click="(rewards.reward_flag = 2), (take_click = true)">
+                <div v-else-if="mission.flag === 1" @click="getReward(mission.id)">
                     <span class="take_text_done">수령하기</span>
                 </div>
                 <div v-else-if="rewards.reward_flag === 2">
@@ -97,6 +97,7 @@
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
+import axios from "axios";
 export default {
     components: { PhoneHeader },
     data() {
@@ -138,6 +139,31 @@ export default {
         goBack() {
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
         },
+        getReward(id) {
+            axios.put(
+                "http://34.64.212.142/api/user/mission",
+                {
+                    id: id,
+                    flag: 2,
+                },
+                {
+                    headers: {
+                        Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                    },
+                }
+            );
+        },
+    },
+    computed: {
+        missionList() {
+            return this.$store.dispatch("GET_MISSION_LIST");
+        },
+        userDetail() {
+            return this.$store.state.userDetail;
+        },
+    },
+    created() {
+        this.$store.dispatch("GET_USER_DETAIL");
     },
 };
 </script>
