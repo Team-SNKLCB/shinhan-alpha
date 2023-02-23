@@ -3,7 +3,7 @@
     <phone-header></phone-header>
     <img class="mode-tutorial" src="../assets/tutorial.png" />
     <router-link class="admit-btn" to="easy_menu"
-      ><img src="../assets/admit-btn.png"
+      ><img src="../assets/ok_bar.svg"
     /></router-link>
   </div>
 </template>
