@@ -27,4 +27,5 @@ function changeUserMode() {
         },
     });
 }
+
 export { getUserMission, getUserDetail, changeUserMode };

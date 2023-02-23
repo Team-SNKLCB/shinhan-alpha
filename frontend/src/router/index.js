@@ -127,7 +127,13 @@ const routes = [
     component: ELSview,
   },
 import MenuView from "../views/MenuView.vue";
+import Test from "../views/test.vue";
 const routes = [
+    {
+        path: "/test",
+        name: "test",
+        component: Test,
+    },
     {
         path: "/",
         name: "splash",

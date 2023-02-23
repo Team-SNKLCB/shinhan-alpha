@@ -34,49 +34,20 @@
       </div>
     </div>
     <div id="mission-div">
-      <div
-        class="mission-list"
-        v-for="(mission, i) in missions"
-        :key="mission.mission_name"
-      >
-        <p class="mission-title">{{ mission.mission_name }}</p>
-        <p class="mission-info">{{ mission.mission_description }}</p>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 30px;
-          "
-        >
-          <div class="mission-point">{{ mission.mission_point }}P</div>
-          <img
-            v-if="mission.flag === 1"
-            style="width: 44px; height: 44px"
-            src="../assets/mission-ing.png"
-          />
-          <img
-            v-else-if="mission.flag === 2"
-            style="width: 44px; height: 44px"
-            @click="changeStatus(i)"
-            src="../assets/mission-end.png"
-          />
-          <div style="position: relative" v-else-if="mission.flag === 3">
-            <img
-              style="width: 44px; height: 44px"
-              src="../assets/mission-completed.png"
-            />
-            <img
-              style="
-                width: 80px;
-                height: 60px;
-                position: absolute;
-                left: -15px;
-                bottom: 0px;
-              "
-              src="../assets/complete_stamp.png"
-            />
-          </div>
+
+        <div class="mission-list" v-for="mission in missions" :key="mission.mission_name">
+            <p class="mission-title">{{ mission.mission_name }}</p>
+            <p class="mission-info">{{ mission.mission_description }}</p>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 30px">
+                <div class="mission-point">{{ mission.mission_point }}P</div>
+                <img v-if="mission.flag === 1" style="width: 44px; height: 44px" src="../assets/mission-ing.png" />
+                <img v-else-if="mission.flag === 2" style="width: 44px; height: 44px" @click="changeStatus(mission.id)" src="../assets/mission-end.png" />
+                <div style="position: relative" v-else-if="mission.flag === 3">
+                    <img style="width: 44px; height: 44px" src="../assets/mission-completed.png" />
+                    <img style="width: 80px; height: 60px; position: absolute; left: -15px; bottom: 0px" src="../assets/complete_stamp.png" />
+                </div>
+            </div>
+
         </div>
       </div>
     </div>
@@ -93,10 +64,6 @@ export default {
         changeStatus(index) {
             missions[index].mission_flag = 3;
         },
-    },
-    components: {
-        PhoneHeader,
-    },
   },
   components: {
     PhoneHeader,
