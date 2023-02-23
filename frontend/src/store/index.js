@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { getUserMission, getUserDetail, changeUserMode, getPoints, getUserReward } from "../api/index.js";
+import { getUserMission, getUserDetail, getPoints, getPointLog, getUserReward } from "../api/index.js";
 
 export default createStore({
     state: {
@@ -83,6 +83,7 @@ export default createStore({
         total_point: 0,
         userMissionList: [],
         userRewardList: [],
+        pointLog: [],
     },
     getters: {},
     mutations: {
@@ -98,8 +99,18 @@ export default createStore({
         GET_USER_REWARD_LIST(state, userRewardList) {
             state.userRewardList = userRewardList;
         },
+        GET_POINT_LOG_LIST(state, pointLog) {
+            state.pointLog = pointLog;
+        },
     },
     actions: {
+        async GET_POINT_LOG(context) {
+            return getPointLog().then((res) => {
+                context.commit("GET_POINT_LOG_LIST", res.data.results);
+                return;
+            });
+        },
+
         async GET_USER_REWARD(context) {
             return getUserReward()
                 .then((res) => {

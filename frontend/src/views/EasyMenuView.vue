@@ -23,6 +23,18 @@
                 src="../assets/app-icon/add-menu-modal.svg"
             />
         </div>
+        <!-- 브론즈 2 승급 모달-->
+        <div v-if="isB2TierUp" class="overlay_modal">
+            <img
+                @click="
+                    () => {
+                        this.$store.state.total_apps[4].added = true;
+                        isB2TierUp = false;
+                    }
+                "
+                src="../assets/app-icon/add-menu2-modal.svg"
+            />
+        </div>
         <div class="easy-menu-header">
             <span v-if="isLogin === null" style="font-size: 14px; color: white">만나서 반가워요!</span>
             <span v-else style="font-size: 14px; color: white"
@@ -190,16 +202,14 @@ export default {
     },
 
     created() {
-        this.$store.dispatch("GET_USER_DETAIL").then((res) => {
-            if (sessionStorage.getItem("tier") != "undefined" && this.$store.state.userDetail.tier !== sessionStorage.getItem("tier")) {
-                this.isB2TierUp = true;
-            }
-        });
+        this.$store.dispatch("GET_USER_DETAIL");
     },
     mounted() {
-        console.log(this.userDetail);
         if (sessionStorage.getItem("accessToken")) {
             console.log(sessionStorage.getItem("B3Flag"));
+            if (this.$store.state.userDetail.tier == 2) {
+                this.isB2TierUp = true;
+            }
             if (!sessionStorage.getItem("B3Flag") || sessionStorage.getItem("B3Flag") == "false") {
                 this.bronze = true;
                 sessionStorage.setItem("B3Flag", true);

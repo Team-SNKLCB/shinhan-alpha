@@ -21,7 +21,7 @@
                 </p>
                 <p style="margin-top: 20px">
                     다음 등급까지
-                    <span style="color: rgba(53, 78, 242, 0.9)">152P</span> 남았어요.
+                    <span style="color: rgba(53, 78, 242, 0.9)">50P</span> 남았어요.
                 </p>
             </div>
         </div>
@@ -54,18 +54,47 @@ export default {
     },
     methods: {
         changeStatus(index) {
-            axios.put(
-                "http://localhost:8000/api/user/mission",
-                {
-                    id: index,
-                    flag: 2,
-                },
-                {
-                    headers: {
-                        Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+            axios
+                .put(
+                    "http://34.64.212.142/api/user/mission",
+                    {
+                        id: index,
+                        flag: 3,
                     },
-                }
-            );
+                    {
+                        headers: {
+                            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                        },
+                    }
+                )
+                .then((res) => {
+                    axios
+                        .put(
+                            "http://34.64.212.142/api/user/detail",
+                            {
+                                tier: 2,
+                            },
+                            {
+                                headers: {
+                                    Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                                },
+                            }
+                        )
+                        .then((res) => {
+                            axios.put(
+                                "http://34.64.212.142/api/user/reward",
+                                {
+                                    id: 2,
+                                    flag: 1,
+                                },
+                                {
+                                    headers: {
+                                        Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                                    },
+                                }
+                            );
+                        });
+                });
         },
     },
     components: {

@@ -1,8 +1,16 @@
 import axios from "axios";
 
 const config = {
-    baseurl: "http://localhost:8000",
+    baseurl: "http://34.64.212.142",
 };
+
+function getPoints() {
+    return axios.get(`${config.baseurl}/api/user/totalpoint`, {
+        headers: {
+            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+        },
+    });
+}
 
 function getUserMission() {
     return axios.get(`${config.baseurl}/api/user/mission`, {
@@ -28,8 +36,8 @@ function changeUserMode() {
     });
 }
 
-function getPoints() {
-    return axios.get(`${config.baseurl}/api/user/signin`, {
+function getPointLog() {
+    return axios.get(`${config.baseurl}/api/user/point`, {
         headers: {
             Authorization: "JWT " + sessionStorage.getItem("accessToken"),
         },
@@ -44,4 +52,4 @@ function getUserReward() {
     });
 }
 
-export { getUserMission, getUserDetail, changeUserMode, getPoints, getUserReward };
+export { getUserMission, getUserDetail, changeUserMode, getPointLog, getUserReward, getPoints };

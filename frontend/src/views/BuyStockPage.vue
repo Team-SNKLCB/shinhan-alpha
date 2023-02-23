@@ -62,7 +62,7 @@
                     <div @click="buy_click = 0" class="not_buy">
                         <span style="color: white">취소</span>
                     </div>
-                    <div @click="buy_stock(10)" class="buy_box">
+                    <div @click="buy_stock(3)" class="buy_box">
                         <span style="color: white">매수주문</span>
                     </div>
                 </div>
@@ -210,7 +210,7 @@ export default {
         buy_stock(id) {
             this.buy_click = 2;
             axios.put(
-                "http://localhost:8000/api/user/mission",
+                "http://34.64.212.142/api/user/mission",
                 {
                     id: id,
                     flag: 2,

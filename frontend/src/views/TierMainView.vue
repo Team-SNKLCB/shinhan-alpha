@@ -9,9 +9,9 @@
                 <img id="tier-image" :src="tier[0].tier_image" />
                 <div id="tier-descript">
                     <p>나의 티어는?</p>
-                    <span class="my-tier" :style="{ color: tiers[userDetail.tier].color }">{{ tiers[userDetail.tier].tier }}</span>
+                    <span class="my-tier" :style="{ color: tiers[userDetail.tier - 1].color }">{{ tiers[userDetail.tier - 1].tier }}</span>
                 </div>
-                <ve-progress :process="[-100, 100]" id="point-bar" color="#354EF2" empty-color="#F1F1F1" :thickness="border" empty-thickness="5%" :progress="points" :size="300">
+                <ve-progress :process="[-100, 100]" id="point-bar" color="#354EF2" empty-color="#F1F1F1" :thickness="border" empty-thickness="5%" :progress="60" :size="300">
                 </ve-progress>
             </div>
             <div id="link-btn-div">
