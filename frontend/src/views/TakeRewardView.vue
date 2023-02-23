@@ -8,9 +8,9 @@
                 <br />
 
                 <img src="../assets/silver_modal.png" /><br />
-                <p style="font-size: 18px; font-weight: bold"><span style="color: #979797">실버</span> 달성을 축하합니다!</p>
+                <p style="margin-top: 10px; font-size: 15px; font-weight: bold"><span style="color: #674019">브론즈III</span> 달성을 축하합니다!</p>
 
-                <p style="font-size: 20px; font-weight: bold">주식거래 수수료 우대 혜택</p>
+                <p style="font-size: 20px; font-weight: bold">국내 주식 랜덤 1주</p>
             </div>
         </div>
         <phone-header></phone-header>
@@ -51,18 +51,7 @@
                 <p>리워드 수령하기</p>
             </div>
         </div>
-        <div v-if="user_click">
-            <!-- <div v-for="(a, i) in index" class="point_check" :key="i">
-        <div class="box_text_point_title">
-          <p>출석체크</p>
-          <br />
-          <p class="point_time">2023.02.16 16:30:12</p>
-        </div>
-        <div>
-          <p style="font-weight: bold; color: #4276f2">+30P</p>
-        </div>
-      </div> -->
-        </div>
+
         <div v-if="user_click === false" id="item">
             <!-- 회검 -->
             <div @click="user_click = true" class="box_text" style="color: #979797">
@@ -70,24 +59,34 @@
             </div>
             <div class="box_text"><p>리워드 수령하기</p></div>
         </div>
+        <div v-if="user_click">
+            <div v-for="(log, i) in pointLog" class="point_check" :key="i">
+                <div class="box_text_point_title">
+                    <p style="font-weight: 500; font-size: 15px">{{ log.mission_name }}</p>
+                    <br />
+                    <p class="point_time">{{ log.tstamp.substr(0, 10) }}</p>
+                </div>
+                <div>
+                    <p style="font-weight: bold; color: #4276f2">+{{ log.mission_point }}P</p>
+                </div>
+            </div>
+        </div>
         <template v-if="user_click === false">
-            <div v-for="(mission, i) in missionList" :key="i" class="point_check">
+            <div v-for="(reward, i) in rewardList" :key="i" class="point_check">
                 <div class="tier_reward">
-                    <p style="font-weight: bold; font-size: 16px">
-                        {{ mission.reward_reward_name }}
-                    </p>
+                    <p style="font-weight: bold; font-size: 16px">{{ reward.reward_tier_name }} 달성</p>
                     <br />
                     <p style="font-weight: bold; font-size: 11px; color: #979797">
-                        {{ mission.reward_tier_name }}
+                        {{ reward.reward_reward_name }}
                     </p>
                 </div>
-                <div v-if="mission.flag === 0">
+                <div v-if="reward.flag === 0">
                     <p class="take_text_yet">미달성</p>
                 </div>
-                <div v-else-if="mission.flag === 1" @click="getReward(mission.id)">
+                <div v-else-if="reward.flag === 1" @click="getReward(reward.id)">
                     <span class="take_text_done">수령하기</span>
                 </div>
-                <div v-else-if="rewards.reward_flag === 2">
+                <div v-else-if="reward.flag === 2">
                     <p class="take_text_clear">수령완료</p>
                 </div>
             </div>
@@ -105,34 +104,7 @@ export default {
             user_click: true,
             take_click: false,
             index: ["a", "b", "c"],
-            user_tier: 1,
-            rewards: [
-                {
-                    reward_title: "브론즈 달성",
-                    reward_info: "국내 주식 랜덤 1주",
-                    reward_flag: 2,
-                },
-                {
-                    reward_title: "실버 달성",
-                    reward_info: "수수료 우대",
-                    reward_flag: 1,
-                },
-                {
-                    reward_title: "골드 달성",
-                    reward_info: "수수료 우대",
-                    reward_flag: 0,
-                },
-                {
-                    reward_title: "플레티넘 달성",
-                    reward_info: "신한 플러스 3개월 할인",
-                    reward_flag: 0,
-                },
-                {
-                    reward_title: "다이아 달성",
-                    reward_info: "국내 주식 랜덤 1주",
-                    reward_flag: 0,
-                },
-            ],
+            user_tier: 0,
         };
     },
     methods: {
@@ -140,30 +112,39 @@ export default {
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
         },
         getReward(id) {
-            axios.put(
-                "http://34.64.212.142/api/user/mission",
-                {
-                    id: id,
-                    flag: 2,
-                },
-                {
-                    headers: {
-                        Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+            this.take_click = true;
+            axios
+                .put(
+                    "http://34.64.212.142/api/user/reward",
+                    {
+                        id: id,
+                        flag: 2,
                     },
-                }
-            );
+                    {
+                        headers: {
+                            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                        },
+                    }
+                )
+                .then((res) => this.$store.dispatch("GET_USER_MISSION"));
         },
     },
     computed: {
-        missionList() {
-            return this.$store.dispatch("GET_MISSION_LIST");
+        rewardList() {
+            return this.$store.state.userRewardList;
         },
         userDetail() {
             return this.$store.state.userDetail;
         },
+        pointLog() {
+            return this.$store.state.pointLog;
+        },
     },
     created() {
         this.$store.dispatch("GET_USER_DETAIL");
+        this.$store.dispatch("GET_MISSION_LIST");
+        this.$store.dispatch("GET_USER_REWARD");
+        this.$store.dispatch("GET_POINT_LOG");
     },
 };
 </script>

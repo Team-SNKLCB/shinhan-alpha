@@ -4,6 +4,14 @@ const config = {
     baseurl: "http://34.64.212.142",
 };
 
+function getPoints() {
+    return axios.get(`${config.baseurl}/api/user/totalpoint`, {
+        headers: {
+            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+        },
+    });
+}
+
 function getUserMission() {
     return axios.get(`${config.baseurl}/api/user/mission`, {
         headers: {
@@ -28,15 +36,15 @@ function changeUserMode() {
     });
 }
 
-function getPoints() {
-    return axios.get(`${config.baseurl}/api/user/signin`, {
+function getPointLog() {
+    return axios.get(`${config.baseurl}/api/user/point`, {
         headers: {
             Authorization: "JWT " + sessionStorage.getItem("accessToken"),
         },
     });
 }
 
-function getMissionList() {
+function getUserReward() {
     return axios.get(`${config.baseurl}/api/user/reward`, {
         headers: {
             Authorization: "JWT " + sessionStorage.getItem("accessToken"),
@@ -44,4 +52,4 @@ function getMissionList() {
     });
 }
 
-export { getUserMission, getUserDetail, changeUserMode, getPoints, getMissionList };
+export { getUserMission, getUserDetail, changeUserMode, getPointLog, getUserReward, getPoints };

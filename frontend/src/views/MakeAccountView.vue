@@ -64,7 +64,7 @@ export default {
                     tier: 1,
                     username: this.id,
                 })
-                .then((res) => console.log(res))
+                .then((res) => this.$router.push("/login"))
                 .catch((err) => console.log(err));
         },
     },

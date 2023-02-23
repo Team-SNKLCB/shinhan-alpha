@@ -10,7 +10,7 @@
                     <span style="color: white">{{ userDetail.name }}</span> 님은
                 </p>
                 <p>
-                    <span :style="{ color: tier[Number(userDetail.tier) + 1].color }">{{ tier[Number(userDetail.tier) + 1].tier }}</span>
+                    <span :style="{ color: tier ? tier[Number(userDetail.tier)].color : white }">{{ tier[Number(userDetail.tier)].tier }}</span>
                     <span style="color: white"> 가는중 !</span>
                 </p>
             </div>
@@ -21,7 +21,7 @@
                 </p>
                 <p style="margin-top: 20px">
                     다음 등급까지
-                    <span style="color: rgba(53, 78, 242, 0.9)">152P</span> 남았어요.
+                    <span style="color: rgba(53, 78, 242, 0.9)">50P</span> 남았어요.
                 </p>
             </div>
         </div>
@@ -47,13 +47,54 @@
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
+import axios from "axios";
 export default {
     data() {
         return {};
     },
     methods: {
         changeStatus(index) {
-            missions[index].mission_flag = 3;
+            axios
+                .put(
+                    "http://34.64.212.142/api/user/mission",
+                    {
+                        id: index,
+                        flag: 3,
+                    },
+                    {
+                        headers: {
+                            Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                        },
+                    }
+                )
+                .then((res) => {
+                    axios
+                        .put(
+                            "http://34.64.212.142/api/user/detail",
+                            {
+                                tier: 2,
+                            },
+                            {
+                                headers: {
+                                    Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                                },
+                            }
+                        )
+                        .then((res) => {
+                            axios.put(
+                                "http://34.64.212.142/api/user/reward",
+                                {
+                                    id: 2,
+                                    flag: 1,
+                                },
+                                {
+                                    headers: {
+                                        Authorization: "JWT " + sessionStorage.getItem("accessToken"),
+                                    },
+                                }
+                            );
+                        });
+                });
         },
     },
     components: {
@@ -61,7 +102,7 @@ export default {
     },
     computed: {
         missions() {
-            return this.$store.state.missionList;
+            return this.$store.state.userMissionList;
         },
         userDetail() {
             return this.$store.state.userDetail;
@@ -70,8 +111,8 @@ export default {
             return this.$store.state.checkTier;
         },
     },
-    created() {
-        this.$store.dispatch("GET_MISSION_LIST");
+    beforeMount() {
+        this.$store.dispatch("GET_USER_MISSION");
         this.$store.dispatch("GET_USER_DETAIL");
     },
 };
