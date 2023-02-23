@@ -46,41 +46,49 @@
                 {{ item.name }}
             </div>
         </div>
-        <div id="my-apps" v-if="isLogin">
-            <my-grid-layout
-                :col-num="12"
-                :row-height="30"
-                :is-draggable="changeMode ? true : false"
-                :is-resizable="false"
-                :is-mirrored="false"
-                :responsive="responsive"
-                :vertical-compact="true"
-                :margin="[10, 10]"
-                :use-css-transforms="true"
-                :layout="layout"
+        <my-grid-layout
+            v-if="isLogin"
+            :col-num="12"
+            :row-height="30"
+            :is-draggable="changeMode ? draggable : false"
+            :is-resizable="false"
+            :is-mirrored="false"
+            :responsive="responsive"
+            :vertical-compact="true"
+            :margin="[10, 10]"
+            :use-css-transforms="true"
+            :layout="layout"
+        >
+            <my-grid-item
+                style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
+                v-for="item in layout"
+                :x="item.x"
+                :y="item.y"
+                :w="item.w"
+                :h="item.h"
+                :i="item.i"
+                :key="item.i"
             >
-                <my-grid-item
-                    style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
-                    v-for="item in totalApps"
-                    :x="item.x"
-                    :y="item.y"
-                    :w="item.w"
-                    :h="item.h"
-                    :i="item.i"
-                    :key="item.i"
-                >
-                    <div v-if="item.added === true">
-                        <img v-if="changeMode === true" @click="removeItem(item.i)" class="remove" style="width: 18px; height: 18px" src="../assets/top/minus-cirlce.png" />
-                        <img :src="item.img" :style="{ opacity: imgOpacity }" />
-                        <div style="font-size: 10px">{{ item.name }}</div>
-                    </div>
-                    <div v-else-if="changeMode === true">
-                        <img @click="addItem(item.i)" class="remove" style="width: 18px; height: 18px" src="../assets/top/add-circle.svg" />
-                        <img :src="item.img" :style="{ opacity: addImgOpacity }" />
-                        <div style="font-size: 10px">{{ item.name }}</div>
-                    </div>
-                </my-grid-item>
-                <!-- <div v-if="changeMode === true">
+                <img
+                    v-if="item.added === true && changeMode === true"
+                    @click="removeItem(item.i)"
+                    class="remove"
+                    style="width: 18px; height: 18px"
+                    src="../assets/top/minus-cirlce.png"
+                />
+                <img v-if="item.added === true" :src="item.img" :style="{ opacity: imgOpacity }" />
+                <div v-if="item.added === true" style="font-size: 10px">{{ item.name }}</div>
+                <img
+                    v-if="item.added === false && changeMode === true"
+                    @click="addItem(item.i)"
+                    class="remove"
+                    style="width: 18px; height: 18px"
+                    src="../assets/top/add-circle.svg"
+                />
+                <img v-if="item.added === false && changeMode === true" :src="item.img" :style="{ opacity: addImgOpacity }" />
+                <div v-if="item.added === false && changeMode === true" style="font-size: 10px">{{ item.name }}</div>
+            </my-grid-item>
+            <!-- <div v-if="changeMode === true">
                     <my-grid-item
                         style="text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center"
                         v-for="item in totalApps"
@@ -96,18 +104,18 @@
                         <div style="font-size: 10px">{{ item.name }}</div>
                     </my-grid-item>
                 </div> -->
-            </my-grid-layout>
-        </div>
+        </my-grid-layout>
+    </div>
 
-        <div style="position: absolute; bottom: 30px; left: 18.5px" v-if="isLogin === null">
-            <router-link to="/login"><div class="login-btn">로그인</div></router-link>
-            <router-link to="/make_account"><div class="make-account-btn">계좌만들기</div></router-link>
-        </div>
+    <div style="position: absolute; bottom: 30px; left: 18.5px" v-if="isLogin === null">
+        <router-link to="/login"><div class="login-btn">로그인</div></router-link>
+        <router-link to="/make_account"><div class="make-account-btn">계좌만들기</div></router-link>
     </div>
 </template>
 
 <script>
 import PhoneHeader from "@/components/PhoneHeader.vue";
+import { def } from "@vue/shared";
 import { GridLayout, GridItem } from "vue3-grid-layout-next";
 export default {
     data() {
@@ -119,10 +127,10 @@ export default {
                 { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인", img: require("../assets/app-icon/계좌확인.svg"), static: true },
                 { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터", img: require("../assets/app-icon/고객센터.svg"), static: true },
             ],
-            layout: [
-                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체", img: require("../assets/app-icon/이체.svg"), static: true },
-                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인", img: require("../assets/app-icon/계좌확인.svg"), static: true },
-                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터", img: require("../assets/app-icon/고객센터.svg"), static: true },
+            layout2: [
+                { x: 0, y: 0, w: 4, h: 2.5, i: "0", name: "이체", img: require("../assets/app-icon/이체.svg"), static: true, added: true },
+                { x: 4, y: 0, w: 4, h: 2.5, i: "1", name: "내 계좌 확인", img: require("../assets/app-icon/계좌확인.svg"), static: true, added: true },
+                { x: 8, y: 0, w: 4, h: 2.5, i: "2", name: "고객센터", img: require("../assets/app-icon/고객센터.svg"), static: true, added: false },
                 // { x: 0, y: 2.5, w: 4, h: 2.5, i: "3", name: "MMF", img: require("../assets/app-icon/MMF.svg"), static: true },
                 // { x: 4, y: 2.5, w: 4, h: 2.5, i: "4", name: "RP", img: require("../assets/app-icon/RP.svg"), static: true },
                 // { x: 8, y: 2.5, w: 4, h: 2.5, i: "5", name: "국내주식", img: require("../assets/app-icon/국내주식.svg"), static: true },
@@ -154,7 +162,7 @@ export default {
         addImgOpacity() {
             return this.changeMode ? 1 : 0.5;
         },
-        totalApps() {
+        layout() {
             return this.$store.state.total_apps;
         },
         tier() {
