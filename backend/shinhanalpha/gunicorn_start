@@ -1,5 +1,5 @@
-export DJANGO_SETTINGS_MODULE=shinhan-alpha.settings
+export DJANGO_SETTINGS_MODULE=shinhanalpha.settings
 export PYTHONPATH=/usr/src/app:$PYTHONPATH
-export DJANGO_WSGI_MODULE=shinhan-alpha.wsgi
+export DJANGO_WSGI_MODULE=shinhanalpha.wsgi
 
-exec gunicorn shinhan-alpha.wsgi:application --name APP --workers 2 --user root --bind 0.0.0.0:8000
+exec gunicorn shinhanalpha.wsgi:application --name APP --workers 2 --user root --bind 0.0.0.0:8000
