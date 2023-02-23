@@ -11,7 +11,8 @@
                     <p>나의 티어는?</p>
                     <span class="my-tier" :style="{ color: tiers[userDetail.tier].color }">{{ tiers[userDetail.tier].tier }}</span>
                 </div>
-                <circle-progress size="302" style="position: absolute; left: 10px; top: 32px" :percent="points" fill-color="#354ef2" border-width="20" />
+                <ve-progress :process="[-100, 100]" id="point-bar" color="#354EF2" empty-color="#F1F1F1" :thickness="border" empty-thickness="5%" :progress="points" :size="300">
+                </ve-progress>
             </div>
             <div id="link-btn-div">
                 <router-link to="/take_reward"
@@ -45,6 +46,7 @@
 import PhoneHeader from "@/components/PhoneHeader.vue";
 import "vue3-circle-progress/dist/circle-progress.css";
 import CircleProgress from "vue3-circle-progress";
+import { veProgress } from "vue-ellipse-progress";
 export default {
     data() {
         return {
@@ -80,7 +82,9 @@ export default {
     components: {
         PhoneHeader,
         CircleProgress,
+        veProgress,
     },
+
     computed: {
         userDetail() {
             return this.$store.state.userDetail;
@@ -100,6 +104,14 @@ export default {
 </script>
 
 <style scoped>
+#point-bar {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 33px;
+    right: 10.5px;
+    z-index: -1;
+}
 .x-btn {
     margin-top: 40px;
     height: 30px;
@@ -120,7 +132,7 @@ export default {
 
 #tier-descript {
     font-family: "Noto Sans KR";
-    margin-top: 40px;
+    margin-top: 35px;
     font-size: 14px;
 }
 

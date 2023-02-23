@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { getUserMission, getUserDetail, changeUserMode, getPoints } from "../api/index.js";
+import { getUserMission, getUserDetail, changeUserMode, getPoints, getMissionList } from "../api/index.js";
 
 export default createStore({
     state: {
@@ -82,6 +82,7 @@ export default createStore({
             { x: 8, y: 10, w: 4, h: 2.5, i: "14", name: "금", img: require("../assets/app-icon/금.svg"), static: true, added: false },
         ],
         total_point: 0,
+        missionList: [],
     },
     getters: {},
     mutations: {
@@ -94,8 +95,9 @@ export default createStore({
         GET_USER_TT_POINT(state, total_point) {
             state.total_point = total_point;
         },
-        // CHANGE_USER_MENU_MODE(state, e_activate) {
-        // },
+        GET_MISSION_LIST_MUT(state, missionList) {
+            state.missionList = missionList;
+        },
     },
     actions: {
         async GET_MISSION_LIST(context) {
@@ -119,6 +121,13 @@ export default createStore({
         async GET_USER_TOTAL_POINT(context) {
             return getPoints().then((res) => {
                 context.commit("GET_USER_TT_POINT", res.data);
+                return res.data;
+            });
+        },
+
+        async GET_MISSION_LIST(context) {
+            return getMissionList().then((res) => {
+                context.commit("GET_MISSION_LIST_MUT", res.data);
                 return res.data;
             });
         },
